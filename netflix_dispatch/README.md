@@ -11,10 +11,10 @@ Dispatch docker image depends on an open source PostgreSQL by default. To enhanc
 ---
 ### Index
 
-- []()
-- []()
-- []()
-- []()
+- [Step 1. Use Terraform to provision ECS and database on Alibaba Cloud](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/netflix_dispatch#step-1-use-terraform-to-provision-ecs-and-database-on-alibaba-cloud)
+- [Step 2. Setup docker and git](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/netflix_dispatch#step-2-setup-docker-and-git)
+- [Step 3. Setup RDS PostgreSQL as database for Dispatch](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/netflix_dispatch#step-3-setup-rds-postgresql-as-database-for-dispatch)
+- [Step 4. Install and run Dispatch](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/netflix_dispatch#step-4-install-and-run-dispatch)
 
 ---
 ### Step 1. Use Terraform to provision ECS and database on Alibaba Cloud
@@ -23,7 +23,7 @@ Follow this guide (https://www.alibabacloud.com/help/doc-detail/91289.html) to i
 
 Use terraform to provision EIP, ECS and RDS PostgreSQL instances that used in this solution against this .tf file: https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/netflix_dispatch/deployment/terraform/main.tf
 
-![image.png]()
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/netflix_dispatch/images/step-1.png)
 
 ---
 ### Step 2. Setup docker and git
@@ -44,7 +44,7 @@ wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsara
 sh setup.sh
 ```
 
-![image.png]()
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/netflix_dispatch/images/step-2.png)
 
 ---
 ### Step 3. Setup RDS PostgreSQL as database for Dispatch
@@ -57,7 +57,7 @@ mv .env.example .env
 vim .env
 ```
 
-![image.png]()
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/netflix_dispatch/images/step-3.png)
 
 ---
 ### Step 4. Install and run Dispatch
@@ -66,7 +66,7 @@ vim .env
 ./install.sh
 ```
 
-![image.png]()
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/netflix_dispatch/images/step-4.png)
 
 ```
 docker-compose up -d
@@ -76,4 +76,4 @@ docker-compose up -d
 http://<ECS_EIP>:8000
 ```
 
-![image.png]()
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/netflix_dispatch/images/step-4.png)
