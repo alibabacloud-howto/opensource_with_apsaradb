@@ -76,4 +76,4 @@ docker-compose up -d
 http://<ECS_EIP>:8000
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/netflix_dispatch/images/step-4.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/netflix_dispatch/images/step-4-1.png)
