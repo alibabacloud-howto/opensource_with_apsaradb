@@ -17,14 +17,16 @@ Dispatch docker image depends on an open source PostgreSQL by default. To enhanc
 - []()
 
 ---
-### Use Terraform to provision ECS and database on Alibaba Cloud
+### Step 1. Use Terraform to provision ECS and database on Alibaba Cloud
 
 Follow this guide (https://www.alibabacloud.com/help/doc-detail/91289.html) to install and configure the Terraform client. Please skip this step if you have already setup the Terraform on your environment.
 
 Use terraform to provision EIP, ECS and RDS PostgreSQL instances that used in this solution against this .tf file: https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/netflix_dispatch/deployment/terraform/main.tf
 
+![image.png]()
+
 ---
-### Setup docker and git
+### Step 2. Setup docker and git
 
 Logon to ECS via SSH, use the account root/N1cetest, the password has been predefined in Terraform script for this tutorial. If you changed the password, please use the correct password accordingly.
 
@@ -32,7 +34,7 @@ Logon to ECS via SSH, use the account root/N1cetest, the password has been prede
 ssh root@<EIP_ECS>
 ```
 
-Download the run the setup script: ``setup.sh``:
+Download the run the setup script ``setup.sh`` to setup docker and git client on ECS.
 
 ```
 wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/netflix_dispatch/setup.sh
@@ -42,10 +44,36 @@ wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsara
 sh setup.sh
 ```
 
----
-### Setup RDS PostgreSQL as database for Dispatch
-
+![image.png]()
 
 ---
-### Install and run Dispatch
+### Step 3. Setup RDS PostgreSQL as database for Dispatch
 
+Run the following commands and edit the ``.env`` file with RDS PostgreSQL connection information.
+
+```
+cd dispatch-docker
+mv .env.example .env
+vim .env
+```
+
+![image.png]()
+
+---
+### Step 4. Install and run Dispatch
+
+```
+./install.sh
+```
+
+![image.png]()
+
+```
+docker-compose up -d
+```
+
+```
+http://<ECS_EIP>:8000
+```
+
+![image.png]()
