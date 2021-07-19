@@ -144,47 +144,47 @@ resource "alicloud_eip_association" "eip_ecs" {
   instance_id   = alicloud_instance.instance.id
 }
 
-######## RDS PostgreSQL
-resource "alicloud_db_instance" "instance" {
-  engine           = "PostgreSQL"
-  engine_version   = "12.0"
-  instance_type    = "pg.n2.small.1"
-  instance_storage = "20"
-  vswitch_id       = alicloud_vswitch.vswitch_1.id
-  instance_name    = "apache_superset_database"
-  security_ips     = [alicloud_vswitch.vswitch_1.cidr_block]
-}
+# ######## RDS PostgreSQL
+# resource "alicloud_db_instance" "instance" {
+#   engine           = "PostgreSQL"
+#   engine_version   = "12.0"
+#   instance_type    = "pg.n2.small.1"
+#   instance_storage = "20"
+#   vswitch_id       = alicloud_vswitch.vswitch_1.id
+#   instance_name    = "apache_superset_database"
+#   security_ips     = [alicloud_vswitch.vswitch_1.cidr_block]
+# }
 
-resource "alicloud_db_database" "default" {
-  instance_id = alicloud_db_instance.instance.id
-  name        = "superset"
-}
+# resource "alicloud_db_database" "default" {
+#   instance_id = alicloud_db_instance.instance.id
+#   name        = "superset"
+# }
 
-resource "alicloud_rds_account" "account" {
-  db_instance_id   = alicloud_db_instance.instance.id
-  account_name     = "superset"
-  account_password = "superset"
-  account_type     = "Super"
-}
+# resource "alicloud_rds_account" "account" {
+#   db_instance_id   = alicloud_db_instance.instance.id
+#   account_name     = "superset"
+#   account_password = "superset"
+#   account_type     = "Super"
+# }
 
-resource "alicloud_db_account_privilege" "privilege" {
-  instance_id  = alicloud_db_instance.instance.id
-  account_name = alicloud_rds_account.account.name
-  privilege    = "DBOwner"
-  db_names     = alicloud_db_database.default.*.name
-}
+# resource "alicloud_db_account_privilege" "privilege" {
+#   instance_id  = alicloud_db_instance.instance.id
+#   account_name = alicloud_rds_account.account.name
+#   privilege    = "DBOwner"
+#   db_names     = alicloud_db_database.default.*.name
+# }
 
 ######### Output: EIP of ECS
 output "eip_ecs" {
   value = alicloud_eip.setup_ecs_access.ip_address
 }
 
-######### Output: RDS PostgreSQL Connection String
-output "rds_pg_url" {
-  value = alicloud_db_instance.instance.connection_string
-}
+# ######### Output: RDS PostgreSQL Connection String
+# output "rds_pg_url" {
+#   value = alicloud_db_instance.instance.connection_string
+# }
 
-######### Output: RDS PostgreSQL Connection Port
-output "rds_pg_port" {
-  value = alicloud_db_instance.instance.port
-}
+# ######### Output: RDS PostgreSQL Connection Port
+# output "rds_pg_port" {
+#   value = alicloud_db_instance.instance.port
+# }

@@ -11,13 +11,15 @@ For more administration guide of this Superset image, please refer to: https://s
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/worldbank_dashboard.png)
 
+Deployment architecture:
+
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/archi.png)
 
 ---
 ### Index
 
 - [Step 1. Use Terraform to provision ECS image and database on Alibaba Cloud](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-superset#step-1-use-terraform-to-provision-ecs-image-and-database-on-alibaba-cloud)
-- [Step 2. Setup connection to RDS PostgreSQL](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-superset#step-1-use-terraform-to-provision-ecs-image-and-database-on-alibaba-cloud)
+- [Step 2. Setup connection to RDS PostgreSQL](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-superset#step-2-setup-connection-to-rds-postgresql)
 
 ---
 ### Step 1. Use Terraform to provision ECS image and database on Alibaba Cloud
@@ -29,13 +31,15 @@ Within the terraform script, please use the right ``Image ID`` of [Superset imag
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/superset_image_in_tf.png)
 
-After the Terraform script execution, open the following URL in a Web browser to initialize WordPress: 
+After the Terraform script execution, open the following URL in a Web browser to initialize Superset: 
 
 ```bash
 http://<ECS_EIP>
 ```
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/tf_done.png)
+
+
 
 ---
 ### Step 2. Setup connection to RDS PostgreSQL
