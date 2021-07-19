@@ -14,8 +14,8 @@ variable "name" {
 
 ######## Security group
 resource "alicloud_security_group" "group" {
-  name        = "sg_solution_cloud_native_wordpress"
-  description = "Security group for cloud native wordpress solution"
+  name        = "sg_netflix_dispatch"
+  description = "Security group for netflix dispatch"
   vpc_id      = alicloud_vpc.vpc.id
 }
 
