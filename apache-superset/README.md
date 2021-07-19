@@ -1,4 +1,4 @@
-# Deploy and Running Superset on Alibaba Cloud
+# Deploy and Run Superset on Alibaba Cloud
 Running open source project Apache Superset on Alibaba Cloud with ApsaraDB (Alibaba Cloud Database).
 
 ---
