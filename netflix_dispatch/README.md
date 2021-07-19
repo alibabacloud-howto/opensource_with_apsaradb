@@ -1,4 +1,4 @@
-# Deploy and Running Netflix Dispatch on Alibaba Cloud
+# Deploy and Run Netflix Dispatch on Alibaba Cloud
 Running open source project Netflix Dispatch on Alibaba Cloud with ApsaraDB (Alibaba Cloud Database).
 
 ---
