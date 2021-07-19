@@ -39,7 +39,21 @@ http://<ECS_EIP>
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/tf_done.png)
 
+Please log on to ECS and visit the Superset credential file to get the initial administrator username and password.
 
+```bash
+ssh root@<ECS_EIP>
+```
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/ecs_logon.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/superset_passwword.png)
+
+Then back to Superset log on page, and input the administrator user name and password to log on, you will see the main page.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/superset_logon.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/superset_main.png)
 
 ---
 ### Step 2. Setup connection to RDS PostgreSQL
