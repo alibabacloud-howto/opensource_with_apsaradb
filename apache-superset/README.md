@@ -43,6 +43,8 @@ Please log on to ECS and visit the Superset credential file to get the initial a
 
 ```bash
 ssh root@<ECS_EIP>
+
+vim /credentials/password.txt
 ```
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/ecs_logon.png)
