@@ -70,14 +70,14 @@ Then you can setup ``Dataset``, ``Chart``, ``Dashboard`` or work with other BI f
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/covid-19_dashboard.png)
 
 You can use Superset to connect to the following database types on Alibaba Cloud:
-- [RDS MySQL](), connection URI reference: [https://superset.apache.org/docs/databases/mysql](https://superset.apache.org/docs/databases/mysql)
-- [RDS PostgreSQL](), connection URI reference: [https://superset.apache.org/docs/databases/postgres](https://superset.apache.org/docs/databases/postgres)
-- [RDS SQL Server](), connection URI reference: [https://superset.apache.org/docs/databases/sql-server](https://superset.apache.org/docs/databases/sql-server)
-- [PolarDB MySQL](), connection URI reference: [https://superset.apache.org/docs/databases/mysql](https://superset.apache.org/docs/databases/mysql)
-- [PolarDB PostgreSQL](), connection URI reference: [https://superset.apache.org/docs/databases/postgres](https://superset.apache.org/docs/databases/postgres)
-- [PolarDB-O](), connection URI reference: [https://superset.apache.org/docs/databases/postgres](https://superset.apache.org/docs/databases/postgres)
-- [AnalyticDB MySQL](), connection URI reference: [https://superset.apache.org/docs/databases/mysql](https://superset.apache.org/docs/databases/mysql)
-- [AnalyticDB PostgreSQL](), connection URI reference: [https://superset.apache.org/docs/databases/postgres](https://superset.apache.org/docs/databases/postgres)
-- [ClickHouse](), connection URI reference: [https://superset.apache.org/docs/databases/clickhouse](https://superset.apache.org/docs/databases/clickhouse)
+- [RDS MySQL](https://www.alibabacloud.com/product/apsaradb-for-rds-mysql), connection URI reference: [https://superset.apache.org/docs/databases/mysql](https://superset.apache.org/docs/databases/mysql)
+- [RDS PostgreSQL](https://www.alibabacloud.com/product/apsaradb-for-rds-postgresql), connection URI reference: [https://superset.apache.org/docs/databases/postgres](https://superset.apache.org/docs/databases/postgres)
+- [RDS SQL Server](https://www.alibabacloud.com/product/apsaradb-for-rds-sql-server), connection URI reference: [https://superset.apache.org/docs/databases/sql-server](https://superset.apache.org/docs/databases/sql-server)
+- [PolarDB MySQL](https://www.alibabacloud.com/product/polardb), connection URI reference: [https://superset.apache.org/docs/databases/mysql](https://superset.apache.org/docs/databases/mysql)
+- [PolarDB PostgreSQL](https://www.alibabacloud.com/product/polardb), connection URI reference: [https://superset.apache.org/docs/databases/postgres](https://superset.apache.org/docs/databases/postgres)
+- [PolarDB-O](https://www.alibabacloud.com/product/polardb), connection URI reference: [https://superset.apache.org/docs/databases/postgres](https://superset.apache.org/docs/databases/postgres)
+- [AnalyticDB MySQL](https://www.alibabacloud.com/product/analyticdb-for-mysql), connection URI reference: [https://superset.apache.org/docs/databases/mysql](https://superset.apache.org/docs/databases/mysql)
+- [AnalyticDB PostgreSQL](https://www.alibabacloud.com/product/hybriddb-postgresql), connection URI reference: [https://superset.apache.org/docs/databases/postgres](https://superset.apache.org/docs/databases/postgres)
+- [ClickHouse](https://www.alibabacloud.com/product/clickhouse), connection URI reference: [https://superset.apache.org/docs/databases/clickhouse](https://superset.apache.org/docs/databases/clickhouse)
 
 For more information about database URI in Superset, please refer to [https://superset.apache.org/docs/databases/installing-database-drivers](https://superset.apache.org/docs/databases/installing-database-drivers).
