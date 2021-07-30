@@ -4,9 +4,11 @@ Running open source project Apache OFBiz on Alibaba Cloud with ApsaraDB (Alibaba
 ---
 ### Overview
 [Apache OFBiz (https://ofbiz.apache.org/)](https://ofbiz.apache.org/) is an open source enterprise resource planning (ERP) system. It provides a suite of enterprise applications that integrate and automate many of the business processes of an enterprise.
+
 To enhance with the database high availability behind the Apache OFBiz, we will show the steps of deployment working with Alibaba Cloud Database.
 By default OFBiz includes and is configured for an embedded Java database called Derby. This is a great database for demonstration, testing, development, and even small-scale production environments. There are many databases that OFBiz can use, both commercial and open source. While there are significant production instances of OFBiz running using Oracle, MS SQL Server, and so on, we generally recommend using an open source database such as PostgreSQL or MySQL. Which database to use is an important decision and may have a future impacts on your implementation. If you do not have a preferred database choice then we strongly recommend discussing options with an experienced consultant before making a final decision.
-In thi tutorial, we will show the case of using [RDS MySQL](https://www.alibabacloud.com/product/apsaradb-for-rds-mysql) high availability edition to replace the Derby for more stable production purpose.
+
+In this tutorial, we will show the case of using [RDS MySQL](https://www.alibabacloud.com/product/apsaradb-for-rds-mysql) high availability edition to replace the Derby for more stable production purpose.
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/redash-anim.gif)
 
