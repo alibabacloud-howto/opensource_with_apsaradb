@@ -41,7 +41,7 @@ Please log on to ECS with ``ECS EIP``.
 ssh root@<ECS_EIP>
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/ecs-logon.png)
 
 Then execute the following commands to setup the Apache OFBiz.
 
@@ -57,7 +57,7 @@ cd ofbiz-framework
 vim framework/security/config/security.properties 
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/config_host.png)
 
 Then edit the ``entityengine_backup.xml`` configuration file to set the backend database as RDS MySQL to replace the Derby. Edit with the RDS MySQL connection string and database accounts as shown in the following pictures.
 
@@ -65,11 +65,11 @@ Then edit the ``entityengine_backup.xml`` configuration file to set the backend 
 cp framework/entity/config/entityengine.xml framework/entity/config/entityengine_backup.xml
 vim framework/entity/config/entityengine.xml
 ```
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/mysql_jdbc_config_1.png)
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/mysql_jdbc_config_2.png)
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/mysql_jdbc_config_3.png)
 
 Replace Derby with RDS MySQL in ``default``, ``default-no-eca`` and ``test`` delegators as follows:
 
@@ -77,7 +77,7 @@ Replace Derby with RDS MySQL in ``default``, ``default-no-eca`` and ``test`` del
 - ``localderbyolap`` -> ``localmysqlolap``
 - ``localderbytenant`` -> ``localmysqltenant``
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/datasource-config.png)
 
 Execute the following command to build and initialize the OFBiz.
 
@@ -85,7 +85,7 @@ Execute the following command to build and initialize the OFBiz.
 ./gradlew cleanAll loadAll
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/build_ok.png)
 
 Execute the following command to start the OFBiz.
 
@@ -93,7 +93,7 @@ Execute the following command to start the OFBiz.
 ./gradlew ofbiz
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/start_ok.png)
 
 OFBiz now started. Please visit the following URL to visit the OFBiz now.
 
@@ -103,4 +103,4 @@ https://<ECS_EIP>:8443/accounting
 
 By default, the administrator account name is ``admin``, password is ``ofbiz``.
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/ofbiz_logon.png)
