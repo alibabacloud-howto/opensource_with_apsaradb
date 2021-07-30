@@ -10,28 +10,28 @@ By default OFBiz includes and is configured for an embedded Java database called
 
 In this tutorial, we will show the case of using [RDS MySQL](https://www.alibabacloud.com/product/apsaradb-for-rds-mysql) high availability edition to replace the Derby for more stable production purpose.
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/redash-anim.gif)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/ofbiz.png)
 
 Deployment architecture:
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/archi.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/archi.png)
 
 ---
 ### Index
 
-- [Step 1. Use Terraform to provision ECS and database on Alibaba Cloud]()
-- [Step 2. Deploy and setup OFBiz on ECS with RDS MySQL]()
+- [Step 1. Use Terraform to provision ECS and database on Alibaba Cloud](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-ofbiz#step-1-use-terraform-to-provision-ecs-and-database-on-alibaba-cloud)
+- [Step 2. Deploy and setup OFBiz on ECS with RDS MySQL](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-ofbiz#step-2-deploy-and-setup-ofbiz-on-ecs-with-rds-mysql)
 
 ---
 ### Step 1. Use Terraform to provision ECS and database on Alibaba Cloud
 
-Run the [terraform script](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/redash/deployment/terraform/main.tf) to initialize the resources (in this tutorial, we use RDS MySQL as backend database of OFBiz, so ECS and RDS MySQL instances are included in the Terraform script). Please specify the necessary information and region to deploy.
+Run the [terraform script](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-ofbiz/deployment/terraform/main.tf) to initialize the resources (in this tutorial, we use RDS MySQL as backend database of OFBiz, so ECS and RDS MySQL instances are included in the Terraform script). Please specify the necessary information and region to deploy.
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/tf-parms.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/tf-parms.png)
 
 After the Terraform script execution finished, the ECS and RDS MySQL instance information are listed as below.
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/tf-done.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/tf_done.png)
 
 ### Step 2. Deploy and setup OFBiz on ECS with RDS MySQL
 
@@ -46,8 +46,7 @@ ssh root@<ECS_EIP>
 Then execute the following commands to setup the Apache OFBiz.
 
 ```bash
-mkdir /opt/redash
-wget https://raw.githubusercontent.com/getredash/setup/master/setup.sh
+wget https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-ofbiz/setup.sh
 sh setup.sh
 ```
 
