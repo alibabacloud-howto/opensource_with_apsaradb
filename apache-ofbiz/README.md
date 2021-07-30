@@ -46,62 +46,61 @@ ssh root@<ECS_EIP>
 Then execute the following commands to setup the Apache OFBiz.
 
 ```bash
-wget https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-ofbiz/setup.sh
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-ofbiz/setup.sh
 sh setup.sh
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/setup-done.png)
+After the setup script execution finished, go to edit the property ``host-headers-allowed`` in ``security.properties`` file to add the host IP of the ECS: 
 
-After the setup script execution finished, open the following URL in a Web browser to initialize Redash: 
-
-```bash
-http://<ECS_EIP>
+```
+cd ofbiz-framework
+vim framework/security/config/security.properties 
 ```
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
 
+Then edit the ``entityengine_backup.xml`` configuration file to set the backend database as RDS MySQL to replace the Derby. Edit with the RDS MySQL connection string and database accounts as shown in the following pictures.
 
-
-
-
-
-
-cd ofbiz-framework
-
-vim framework/security/config/security.properties 
-
-**host-headers-allowed** 
-
+```
 cp framework/entity/config/entityengine.xml framework/entity/config/entityengine_backup.xml
 vim framework/entity/config/entityengine.xml
+```
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
 
-**localmysql**
-jdbc-uri
-jdbc-username
-jdbc-password
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
 
-**localmysqlolap**
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
 
-**localmysqltenant**
+Replace Derby with RDS MySQL in ``default``, ``default-no-eca`` and ``test`` delegators as follows:
 
+- ``localderby`` -> ``localmysql``
+- ``localderbyolap`` -> ``localmysqlolap``
+- ``localderbytenant`` -> ``localmysqltenant``
 
-Replace derby with mysql in **default**, **default-no-eca** and **test** delegators as follows:
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
 
-localderby -> localmysql
-localderbyolap -> localmysqlolap
-localderbytenant -> localmysqltenant
+Execute the following command to build and initialize the OFBiz.
 
-
-
-
+```
 ./gradlew cleanAll loadAll
+```
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
 
+Execute the following command to start the OFBiz.
+
+```
 ./gradlew ofbiz
+```
 
-https://47.241.194.101:8443/accounting
-admin
-ofbiz
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
 
+OFBiz now started. Please visit the following URL to visit the OFBiz now.
 
-## Stop: 
-./gradlew 'ofbiz --shutdown'
+```
+https://<ECS_EIP>:8443/accounting
+```
+
+By default, the administrator account name is ``admin``, password is ``ofbiz``.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/redash/images/ecs-logon.png)
