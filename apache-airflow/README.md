@@ -17,13 +17,15 @@ In this tutorial, we will show the case of using [RDS PostgreSQL](https://www.al
 
 Deployment architecture:
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/archi.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/archi.png)
 
 ---
 ### Index
 
 - [Step 1. Use Terraform to provision ECS and databases on Alibaba Cloud]()
 - [Step 2. Deploy and setup Airflow on ECS with RDS PostgreSQL]()
+- [Step 3. Prepare the source and target database for Airflow data migration task demo]()
+- [Step 4. Deploy and run data migration task in Airflow]()
 
 ---
 ### Step 1. Use Terraform to provision ECS and database on Alibaba Cloud
@@ -35,6 +37,11 @@ Run the [terraform script](https://github.com/alibabacloud-howto/opensource_with
 After the Terraform script execution finished, the ECS and RDS PostgreSQL instances information are listed as below.
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/tf-done.png)
+
+- ``rds_pg_url_airflow_database``: The connection URL of the backend database for Airflow
+- ``rds_pg_url_airflow_demo_database``: The connection URL of the demo database using Airflow
+
+The database port for RDS PostgreSQL is ``1921`` by default.
 
 ### Step 2. Deploy and setup Airflow on ECS with RDS PostgreSQL
 
@@ -52,62 +59,153 @@ Download and execute the script [``setup.sh``](https://raw.githubusercontent.com
 cd ~
 wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-airflow/setup.sh
 sh setup.sh
+cd ~/airflow
 mkdir ./dags ./logs ./plugins
 echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
 ```
 
+Edit the downloaded ``docker-compose.yaml`` file to set the backend database as the RDS PostgreSQL.
+
+```
+cd ~/airflow
+vim docker-compose.yaml
+```
+
+Use the connection string of ``rds_pg_url_airflow_database`` in Step 1. Comment the part related the ``postgres``.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/docker-compose-1.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/docker-compose-2.png)
+
+Then execute the following command to initialize Airflow docker.
+
 ```
 docker-compose up airflow-init
+```
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/airflow-inited.png)
+
+Then execute the following command to start Airflow.
+
+```
 docker-compose up
 ```
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/airflow-started.png)
+
+Now, Airflow has started successfully. Please visit the following URL (replace ``<ECS_EIP>`` with the EIP of the ECS) to access the Airflow web console.
+
+```
 http://<ECS_EIP>:8080
+```
 
 The default account has the login ``airflow`` and the password ``airflow``.
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/airflow-login.png)
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/airflow-logined.png)
 
+Next, let's move on to work on the 1st data migration task on Airflow.
 
-### Setup psql for demo
+### Step 3. Prepare the source and target database for Airflow data migration task demo
 
-Download and setup AnalyticDB for PostgreSQL client.
+Please log on to ECS with ``ECS EIP`` within another terminal window.
 
 ```bash
+ssh root@<ECS_EIP>
+```
+
+Download and setup PostgreSQL client to communicate with the demo database.
+
+```bash
+cd ~
 wget http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/compat-openssl10-1.0.2o-3.el8.x86_64.rpm
 rpm -i compat-openssl10-1.0.2o-3.el8.x86_64.rpm
 wget http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/181125/cn_zh/1598426198114/adbpg_client_package.el7.x86_64.tar.gz
 tar -xzvf adbpg_client_package.el7.x86_64.tar.gz
-cd adbpg_client_package/bin
 ```
 
-### Download the sample Northwind database and data
-
-There are DDL and INSERT scripts we’ll need to download so we can build our demo.
-
-Connect to the demo RDS PostgreSQL database ``northwind_source``, create the tables (``northwind_ddl.sql``) and load the sample data (``northwind_data_source.sql``).
+Fetch the database DDL and DML SQL files.
+- [northwind_ddl.sql](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-airflow/northwind_ddl.sql) for both source and target database
+- [northwind_data_source.sql](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-airflow/northwind_data_source.sql) for the source database
+- [northwind_data_target.sql](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-airflow/northwind_data_target.sql) for the target database
 
 ```
-./psql -hpgm-gs5jm643941l6mw4154270.pgsql.singapore.rds.aliyuncs.com -p1921 -Udemo northwind_source
+cd ~/airflow
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-airflow/northwind_ddl.sql
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-airflow/northwind_data_source.sql
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-airflow/northwind_data_target.sql
+```
+
+There are 2 databases (source: ``northwind_source``, target: ``northwind_target``) working as the source and target respectively in this data migration demo.
+
+Connect to the demo source database ``northwind_source``, create the tables (``northwind_ddl.sql``) and load the sample data (``northwind_data_source.sql``).
+Replace ``<rds_pg_url_airflow_demo_database>`` with the demo RDS PostgreSQL connection string.
+We've set up the demo database account as username ``demo`` and password ``N1cetest``.
+
+Execute the following commands for the source database:
+
+```
+cd ~/adbpg_client_package/bin
+./psql -h<rds_pg_url_airflow_demo_database> -p1921 -Udemo northwind_source
 
 \i ~/airflow/northwind_ddl.sql
-\i ~/airflow/northwind_data.sql
+\i ~/airflow/northwind_data_source.sql
 
 select tablename from pg_tables where schemaname='public';
 select count(*) from products;
 select count(*) from orders;
+```
 
-./psql -hpgm-gs5jm643941l6mw4154270.pgsql.singapore.rds.aliyuncs.com -p1921 -Udemo northwind_target
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/source_data.png)
+
+Execute the following commands for the target database:
+
+```
+./psql -h<rds_pg_url_airflow_demo_database> -p1921 -Udemo northwind_target
 
 \i ~/airflow/northwind_ddl.sql
-\i ~/airflow/northwind_data.sql
+\i ~/airflow/northwind_data_target.sql
 
 select tablename from pg_tables where schemaname='public';
 select count(*) from products;
 select count(*) from orders;
 ```
 
-The DAG in this demo finds the new ``product_id`` and ``order_id``’s in database ``northwind_source`` and then updates the same product and order tables in database ``northwind_target`` with the rows greater than that maximum id. The job is scheduled to run every minute starting on today’s date (when you run this demo, please update accordingly).
-The demo airflow DAG python script is originated from [https://dzone.com/articles/part-2-airflow-dags-for-migrating-postgresql-data](https://dzone.com/articles/part-2-airflow-dags-for-migrating-postgresql-data), I've done some modification.
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/target_data.png)
 
+We can see that tables ``products`` and ``orders`` in the target database are empty. Later we will use the migration task running in Airflow to migrate data from the source database to the target database.
+
+### Step 4. Deploy and run data migration task in Airflow
+
+First, go to the Airflow web console (``Admin`` -> ``Connections``) to add database connections to the source and target databases respectively.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/airflow_conn.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/source_conn.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/target_conn.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/conn_list.png)
+
+Download and deploy (put into the ``dags`` directory) the migration task python script [https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-airflow/northwind_migration.py](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-airflow/northwind_migration.py) into Airflow.
+
+```
 cd ~/airflow/dags
-wget .../
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-airflow/northwind_migration.py
+```
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/dag.png)
+
+The DAG task in this demo finds the new ``product_id`` and ``order_id``’s in database ``northwind_source`` and then updates the same product and order tables in database ``northwind_target`` with the rows greater than that maximum id. The job is scheduled to run every minute starting on today’s date (when you run this demo, please update accordingly).
+The demo airflow DAG python script is originated from [https://dzone.com/articles/part-2-airflow-dags-for-migrating-postgresql-data](https://dzone.com/articles/part-2-airflow-dags-for-migrating-postgresql-data), We've done some modification.
+
+If the task loaded successfully, the DAG task is shown on the web console.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/dag_task_1.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/dag_task_2.png)
+
+Since the migration task is running all the times, we can go to the target database and check the data migrated.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/verify_target.png)
