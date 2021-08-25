@@ -22,17 +22,17 @@ Deployment architecture:
 ---
 ### Index
 
-- [Step 1. Use Terraform to provision ECS and databases on Alibaba Cloud]()
-- [Step 2. Deploy and setup Airflow on ECS with RDS PostgreSQL]()
-- [Step 3. Prepare the source and target database for Airflow data migration task demo]()
-- [Step 4. Deploy and run data migration task in Airflow]()
+- [Step 1. Use Terraform to provision ECS and databases on Alibaba Cloud](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-airflow#step-1-use-terraform-to-provision-ecs-and-database-on-alibaba-cloud)
+- [Step 2. Deploy and setup Airflow on ECS with RDS PostgreSQL](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-airflow#step-2-deploy-and-setup-airflow-on-ecs-with-rds-postgresql)
+- [Step 3. Prepare the source and target database for Airflow data migration task demo](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-airflow#step-3-prepare-the-source-and-target-database-for-airflow-data-migration-task-demo)
+- [Step 4. Deploy and run data migration task in Airflow](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-airflow#step-4-deploy-and-run-data-migration-task-in-airflow)
 
 ---
 ### Step 1. Use Terraform to provision ECS and database on Alibaba Cloud
 
 Run the [terraform script](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-airflow/deployment/terraform/main.tf) to initialize the resources (in this tutorial, we use RDS PostgreSQL as backend database of Airflow and another RDS PostgreSQL as the demo database showing the data migration via Airflow task, so ECS and 2 RDS PostgreSQL instances are included in the Terraform script). Please specify the necessary information and region to deploy.
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/tf-parms.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/tf-parms.png)
 
 After the Terraform script execution finished, the ECS and RDS PostgreSQL instances information are listed as below.
 
