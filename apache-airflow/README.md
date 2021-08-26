@@ -1,5 +1,11 @@
 # Deploy and Run Apache Airflow on Alibaba Cloud
-Running open source project Apache Airflow on Alibaba Cloud with ApsaraDB (Alibaba Cloud Database). We also show a simple data migration task deployed and run in Airflow to migrate data between 2 databases.
+Tutorial of running open source project Apache Airflow on Alibaba Cloud with ApsaraDB (Alibaba Cloud Database). We also show a simple data migration task deployed and run in Airflow to migrate data between 2 databases.
+
+You can access the tutorial artifact including deployment script (Terraform), related source code, sample data and instruction guidance from the github project:
+[https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-airflow](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-airflow)
+
+More tutorial around Alibaba Cloud Database, please refer to:
+[https://github.com/alibabacloud-howto/database](https://github.com/alibabacloud-howto/database)
 
 ---
 ### Overview
