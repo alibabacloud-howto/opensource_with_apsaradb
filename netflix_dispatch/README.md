@@ -1,5 +1,11 @@
-# Deploy and Run Netflix Dispatch on Alibaba Cloud
+# Deploy and Run Netflix Dispatch on Alibaba Cloud with Alibaba Cloud Database
 Running open source project Netflix Dispatch on Alibaba Cloud with ApsaraDB (Alibaba Cloud Database).
+
+You can access the tutorial artifact including deployment script (Terraform), related source code, sample data and instruction guidance from the github project:
+[https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/netflix_dispatch](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/netflix_dispatch)
+
+More tutorial around Alibaba Cloud Database, please refer to:
+[https://github.com/alibabacloud-howto/database](https://github.com/alibabacloud-howto/database)
 
 ---
 ### Overview

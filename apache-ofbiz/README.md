@@ -1,5 +1,11 @@
-# Deploy and Run Apache OFBiz on Alibaba Cloud
+# Deploy and Run Apache OFBiz on Alibaba Cloud with Alibaba Cloud Database
 Running open source project Apache OFBiz on Alibaba Cloud with ApsaraDB (Alibaba Cloud Database).
+
+You can access the tutorial artifact including deployment script (Terraform), related source code, sample data and instruction guidance from the github project:
+[https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-ofbiz](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-ofbiz)
+
+More tutorial around Alibaba Cloud Database, please refer to:
+[https://github.com/alibabacloud-howto/database](https://github.com/alibabacloud-howto/database)
 
 ---
 ### Overview
