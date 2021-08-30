@@ -79,10 +79,28 @@ Then, a multi-executor Azkaban instance is ready for use. Open a web browser and
 
 
 
+```
+mkdir ~/project_demo
+cd ~/project_demo
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/azkaban/project-demo/_1_prepare_source_db.py
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/azkaban/project-demo/_2_prepare_target_db.py
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/azkaban/project-demo/_3_data_migration.py
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/azkaban/project-demo/northwind_data_source.sql
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/azkaban/project-demo/northwind_data_target.sql
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/azkaban/project-demo/northwind_ddl.sql
+```
 
 ```
 cd ~/adbpg_client_package/bin
 ./psql -hpgm-3nsp73ntr1nj3b4s168190.pg.rds.aliyuncs.com -p1921 -Udemo northwind_source
+select tablename from pg_tables where schemaname='public';
+select count(*) from products;
+select count(*) from orders;
+```
+
+```
+cd ~/adbpg_client_package/bin
+./psql -hpgm-3nsp73ntr1nj3b4s168190.pg.rds.aliyuncs.com -p1921 -Udemo northwind_target
 select tablename from pg_tables where schemaname='public';
 select count(*) from products;
 select count(*) from orders;
