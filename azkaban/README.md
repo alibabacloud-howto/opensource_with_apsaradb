@@ -271,7 +271,7 @@ Execute the following commands to connect to the target database ``northwind_tar
 
 ```
 cd ~/adbpg_client_package/bin
-./psql -hpgm-3ns0ylsmq3424hzs168190.pg.rds.aliyuncs.com -p1921 -Udemo northwind_target
+./psql -h<rds_pg_url_azkaban_demo_database> -p1921 -Udemo northwind_target
 ```
 
 ```
