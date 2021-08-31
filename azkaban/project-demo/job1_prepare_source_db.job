@@ -1,0 +1,2 @@
+type = command
+command = python3 ./_1_prepare_source_db.py
