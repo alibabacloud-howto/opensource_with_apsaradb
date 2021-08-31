@@ -8,7 +8,7 @@ try:
     conn = psycopg2.connect(database='northwind_target',
                             user='demo',
                             password='N1cetest',
-                            host='127.0.0.1',
+                            host='pgm-xxxx.pg.rds.aliyuncs.com',
                             port='1921')
     conn.set_isolation_level(psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
     cur = conn.cursor()

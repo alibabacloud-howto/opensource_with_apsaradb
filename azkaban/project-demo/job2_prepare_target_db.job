@@ -1,2 +1,2 @@
-type = command
-command = python3 ./_2_prepare_target_db.py
+type=command
+command=python3 _2_prepare_target_db.py
