@@ -31,7 +31,10 @@ Deployment architecture:
 ---
 ### Index
 
-- [Step 1. Use Terraform to provision ECS and databases on Alibaba Cloud]()
+- [Step 1. Use Terraform to provision ECS and databases on Alibaba Cloud](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban#step-1-use-terraform-to-provision-ecs-and-database-on-alibaba-cloud)
+- [Step 2. Deploy and setup Azkaban on ECS with RDS MySQL](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban#step-2-deploy-and-setup-azkaban-on-ecs-with-rds-mysql)
+- [Step 3. Download and prepare demo Azkaban workflow project package](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban#step-3-download-and-prepare-demo-azkaban-workflow-project-package)
+- [Step 4. Deploy and run the demo Azkaban workflow jobs](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban#step-4-deploy-and-run-the-demo-azkaban-workflow-jobs)
 
 ---
 ### Step 1. Use Terraform to provision ECS and database on Alibaba Cloud
