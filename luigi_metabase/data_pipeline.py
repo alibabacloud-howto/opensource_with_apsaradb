@@ -20,6 +20,7 @@ class Config(luigi.Config):
     date = luigi.DateParameter()
 
     host = 'localhost'
+    port = '1921'
     database = 'sales_dw'
     user = 'abhishekzambre'
     password = 'sky'
@@ -225,6 +226,7 @@ class CustomerInfoLoading(luigi.contrib.postgres.CopyToTable):
     date = luigi.DateParameter()
 
     host = Config.host
+    port = Config.port
     database = Config.database
     user = Config.user
     password = Config.password
@@ -249,6 +251,7 @@ class InvoiceLoading(luigi.contrib.postgres.CopyToTable):
     date = luigi.DateParameter()
 
     host = Config.host
+    port = Config.port
     database = Config.database
     user = Config.user
     password = Config.password
@@ -275,6 +278,7 @@ class InvoiceTimeLoading(luigi.contrib.postgres.CopyToTable):
     date = luigi.DateParameter()
 
     host = Config.host
+    port = Config.port
     database = Config.database
     user = Config.user
     password = Config.password
@@ -306,6 +310,7 @@ class ProductInfoLoading(luigi.contrib.postgres.CopyToTable):
     date = luigi.DateParameter()
 
     host = Config.host
+    port = Config.port
     database = Config.database
     user = Config.user
     password = Config.password
@@ -443,6 +448,7 @@ class AssociationRulesLoading(luigi.contrib.postgres.CopyToTable):
     date = luigi.DateParameter()
 
     host = Config.host
+    port = Config.port
     database = Config.database
     user = Config.user
     password = Config.password
@@ -473,6 +479,7 @@ class OutliersLoading(luigi.contrib.postgres.CopyToTable):
     date = luigi.DateParameter()
 
     host = Config.host
+    port = Config.port
     database = Config.database
     user = Config.user
     password = Config.password

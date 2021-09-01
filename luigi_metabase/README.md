@@ -1,8 +1,10 @@
 
-Execute the following command to install python, related python modules, Luigi, JDK 8 and Git.
+Execute the following command to install gcc, python, related python modules, Luigi, JDK 8 and Git.
 
 ```bash
+yum install -y gcc-c++*
 yum install -y python39
+yum install -y postgresql-devel
 pip3 install psycopg2
 pip3 install pandas
 pip3 install mlxtend
@@ -21,6 +23,11 @@ wget http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/compat-opens
 rpm -i compat-openssl10-1.0.2o-3.el8.x86_64.rpm
 wget http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/181125/cn_zh/1598426198114/adbpg_client_package.el7.x86_64.tar.gz
 tar -xzvf adbpg_client_package.el7.x86_64.tar.gz
+```
+
+```
+git clone https://github.com/alibabacloud-howto/opensource_with_apsaradb.git
+cd opensource_with_apsaradb/luigi_metabase/
 ```
 
 Execute the command to start luigi daemon. Once it is up and running, navigate to ``http://<ECS_EIP>:8082/``
