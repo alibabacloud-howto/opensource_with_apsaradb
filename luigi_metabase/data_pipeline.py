@@ -373,7 +373,7 @@ class AssociationRulesGeneration(luigi.Task):
         association_rules(frequent_itemsets, metric="confidence", min_threshold=0.7)
         rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1.2)
 
-        final_rules = pandas.DataFrame([rules['antecedants'].str.join(''),
+        final_rules = pandas.DataFrame([rules['antecedents'].str.join(''),
                                         rules['consequents'].str.join(''),
                                         rules['antecedent support'],
                                         rules['consequent support'],
