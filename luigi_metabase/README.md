@@ -1,5 +1,5 @@
 
-Execute the following command to install gcc, python, related python modules, Luigi, JDK 8 and Git.
+Execute the following command to install gcc, python, related python modules, Luigi, JDK 8, Git and PostgreSQL client.
 
 ```bash
 yum install -y gcc-c++*
@@ -13,11 +13,7 @@ pip3 install luigi
 
 yum install -y java-1.8.0-openjdk-devel.x86_64
 yum install -y git
-```
 
-Then execute the following commands to install PostgreSQL client.
-
-```
 cd ~
 wget http://mirror.centos.org/centos/8/AppStream/x86_64/os/Packages/compat-openssl10-1.0.2o-3.el8.x86_64.rpm
 rpm -i compat-openssl10-1.0.2o-3.el8.x86_64.rpm
@@ -30,11 +26,15 @@ git clone https://github.com/alibabacloud-howto/opensource_with_apsaradb.git
 cd opensource_with_apsaradb/luigi_metabase/
 ```
 
+Execute the command to start Metabase.
+
 ```
 cd ~/opensource_with_apsaradb/luigi_metabase/metabase
 wget https://downloads.metabase.com/v0.40.3.1/metabase.jar
 java -jar metabase.jar
 ```
+
+Once it is up and running, navigate to ``http://<ECS_EIP>:3000/``
 
 Admin User: admin@somebusiness.com
 Password: N1cetest
@@ -43,9 +43,10 @@ Password: N1cetest
 
 ```
 cd ~/adbpg_client_package/bin
-./psql -hpgm-3nsa364dun8rza5k168190.pg.rds.aliyuncs.com -p1921 -Udemo sales_dw
+./psql -hpgm-3nsp9729e9aql1t9168190.pg.rds.aliyuncs.com -p1921 -Udemo sales_dw
 
 \i ~/opensource_with_apsaradb/luigi_metabase/sales_dw_ddl.sql
+select tablename from pg_tables where schemaname='public';
 ```
 
 

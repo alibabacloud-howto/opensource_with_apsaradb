@@ -8,32 +8,31 @@ DROP TABLE IF EXISTS invoice_outliers;
 
 -- Table: Association Rules
 CREATE TABLE association_rules (
-    consequent_support Float,
-    leverage Float,
-    antecedent_support Float,
-    conviction Float,
-    lift Float,
     antecedants Text,
-    confidence Float,
+    consequents Text,
+    antecedent_support Float,
+    consequent_support Float,
     support Float,
-    consequents Text
+    confidence Float,
+    lift Float,
+    leverage Float,
+    conviction Float
 );
-
 
 -- Table: Product Info
 CREATE TABLE product_info (
+    stock_code Text,
     description Text,
-    unit_price Float,
-    stock_code Text
+    unit_price Float
 );
 
 -- Table: Invoice
 CREATE TABLE invoice (
     invoice_no Text,
+    stock_code Text,
     quantity Integer,
     invoice_date Text,
-    customer_id Integer,
-    stock_code Text
+    customer_id Integer
 );
 
 -- Table: Customer Info
@@ -45,23 +44,23 @@ CREATE TABLE customer_info (
 
 -- Table: Invoice Time
 CREATE TABLE invoice_time (
-    minute Integer,
+    invoice_date Text,
+    dayofweek Integer,
     year Integer,
     month Text,
+    day Integer,
     hour Integer,
+    minute Integer,
     dayofyear Integer,
     weekofyear Integer,
-    dayofweek Integer,
-    day Integer,
-    quarter Integer,
-    invoice_date Text
+    quarter Integer
 );
 
 -- Table: Invoice Outliers
 CREATE TABLE invoice_outliers (
     invoice_no Text,
+    stock_code Text,
     quantity Integer,
     invoice_date Text,
-    customer_id Integer,
-    stock_code Text
+    customer_id Integer
 );
