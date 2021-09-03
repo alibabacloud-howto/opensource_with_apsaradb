@@ -285,16 +285,16 @@ class InvoiceTimeLoading(luigi.contrib.postgres.CopyToTable):
     table = Config.invoice_time_table
     column_separator = "\t"
 
-    columns = [("day", "INT"),
+    columns = [("invoice_date", "TEXT"),
                ("dayofweek", "INT"),
-               ("dayofyear", "INT"),
-               ("hour", "INT"),
-               ("invoice_date", "TEXT"),
-               ("minute", "INT"),
+               ("year", "INT"),
                ("month", "TEXT"),
-               ("quarter", "INT"),
+               ("day", "INT"),
+               ("hour", "INT"),
+               ("minute", "INT"),
+               ("dayofyear", "INT"),
                ("weekofyear", "INT"),
-               ("year", "INT")]
+               ("quarter", "INT")]
 
     def requires(self):
         """
