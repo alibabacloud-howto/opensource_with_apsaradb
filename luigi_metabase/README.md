@@ -16,6 +16,7 @@ Metabase supports either PostgreSQL or MySQL as the backend database. On Alibaba
 - [RDS MySQL](https://www.alibabacloud.com/product/apsaradb-for-rds-mysql)
 - [RDS PostgreSQL](https://www.alibabacloud.com/product/apsaradb-for-rds-postgresql)
 - [PolarDB MySQL/PostgreSQL](https://www.alibabacloud.com/product/polardb)
+
 In this tutorial, we will show the case of using [RDS PostgreSQL](https://www.alibabacloud.com/product/apsaradb-for-rds-postgresql) high availability edition for more stable production purpose.
 
 Deployment architecture:
