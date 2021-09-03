@@ -30,10 +30,30 @@ git clone https://github.com/alibabacloud-howto/opensource_with_apsaradb.git
 cd opensource_with_apsaradb/luigi_metabase/
 ```
 
+```
+cd ~/opensource_with_apsaradb/luigi_metabase/metabase
+wget https://downloads.metabase.com/v0.40.3.1/metabase.jar
+java -jar metabase.jar
+```
+
+Admin User: admin@somebusiness.com
+Password: N1cetest
+Business Owner user: owner@somebusiness.com
+Password: N1cetest
+
+
 Execute the command to start luigi daemon. Once it is up and running, navigate to ``http://<ECS_EIP>:8082/``
 
 ```
 luigid
 ```
+
+```
+cd ~/adbpg_client_package/bin
+./psql -hpgm-3nsa364dun8rza5k168190.pg.rds.aliyuncs.com -p1921 -Udemo sales_dw
+select tablename from pg_tables where schemaname='public';
+```
+
+
 
 This tutorial is modified based on [https://github.com/abhishekzambre/data-warehouse](https://github.com/abhishekzambre/data-warehouse) to running on Alibaba Cloud.

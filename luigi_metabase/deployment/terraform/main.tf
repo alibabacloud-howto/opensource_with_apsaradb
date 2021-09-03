@@ -115,7 +115,7 @@ resource "alicloud_vswitch" "vswitch_1" {
 resource "alicloud_instance" "instance" {
   security_groups = alicloud_security_group.group.*.id
 
-  instance_type           = "ecs.c5.large" # 2core 4GB
+  instance_type           = "ecs.c5.xlarge" # 4core 8GB
   system_disk_category    = "cloud_ssd"
   system_disk_name        = "luigi_metabase_system_disk"
   system_disk_size        = 40

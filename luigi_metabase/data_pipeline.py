@@ -22,8 +22,8 @@ class Config(luigi.Config):
     host = 'localhost'
     port = '1921'
     database = 'sales_dw'
-    user = 'abhishekzambre'
-    password = 'sky'
+    user = 'demo'
+    password = 'N1cetest'
 
     customer_info_table = 'customer_info'
     invoice_table = 'invoice'
