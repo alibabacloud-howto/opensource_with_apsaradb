@@ -1,8 +1,7 @@
-# Deploy and Run Azkaban on Alibaba Cloud
-Tutorial of running open source project Azkaban on Alibaba Cloud with ApsaraDB (Alibaba Cloud Database). We also show a simple data preparation and migration task deployed and run in Azkaban to demo a data preparation and migration workflow between 2 databases.
+# Build and Run ETL Data Pipeline and BI with Luigi and Metabase on Alibaba Cloud
 
 You can access the tutorial artifact including deployment script (Terraform), related source code, sample data and instruction guidance from the github project:
-[https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban)
+[https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/luigi_metabase](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/luigi_metabase)
 
 More tutorial around Alibaba Cloud Database, please refer to:
 [https://github.com/alibabacloud-howto/database](https://github.com/alibabacloud-howto/database)
@@ -10,32 +9,23 @@ More tutorial around Alibaba Cloud Database, please refer to:
 ---
 ### Overview
 
-[Azkaban (https://azkaban.github.io/)](https://azkaban.github.io/) is a batch workflow job scheduler created at LinkedIn to run Hadoop and database jobs. Azkaban resolves the ordering through job dependencies and provides an easy to use web user interface to maintain and track your workflows.
+[Luigi (https://github.com/spotify/luigi)](https://github.com/spotify/luigi) is a Python (3.6, 3.7, 3.8, 3.9 tested) package that helps you build complex pipelines of batch jobs. It handles dependency resolution, workflow management, visualization, handling failures, command line integration, and much more. Document reference: [https://luigi.readthedocs.io/en/stable/](https://luigi.readthedocs.io/en/stable/).
 
-After version 3.0, Azkaban provides two modes: the stand alone “solo-server” mode and distributed multiple-executor mode [reference](https://azkaban.readthedocs.io/en/latest/getStarted.html#getting-started-with-the-solo-server).
-- In solo server mode, the DB is embedded H2 and both web server and executor server run in the same process. This should be useful if one just wants to try things out. It can also be used on small scale use cases.
-- The multiple executor mode is for most serious production environment. Its DB should be backed by MySQL instances with master-slave set up. The web server and executor servers should ideally run in different hosts so that upgrading and maintenance shouldn’t affect users. This multiple host setup brings in robust and scalable aspect to Azkaban.
-
-To enhance with the database high availability behind the Azkaban, we will show the steps of deployment working with Alibaba Cloud Database RDS MySQL for Azkaban multiple executor mode (in this tutorial, we use only 1 ECS to host both Azkaban web server and one Azkaban executor server).
-
-Azkaban supports the MySQL as the backend database. On Alibaba Cloud, You can either use one of the following databases:
+[Metabase (https://www.metabase.com/)](https://www.metabase.com/) is an open source business intelligence tool. It lets user ask questions about the data, and displays answers in formats that make sense, whether that’s a bar graph or a detailed table. Metabase uses the default application database (H2) when initially start using Metabase. To enhance with the database high availability behind the Metabase BI Server, we will use Alibaba Cloud Database RDS PostgreSQL as the backend database of Metabase.
+Metabase supports either PostgreSQL or MySQL as the backend database. On Alibaba Cloud, You can either use one of the following databases:
 - [RDS MySQL](https://www.alibabacloud.com/product/apsaradb-for-rds-mysql)
-- [PolarDB MySQL](https://www.alibabacloud.com/product/polardb)
-
-In this tutorial, we will show the case of using [RDS MySQL](https://www.alibabacloud.com/product/apsaradb-for-rds-mysql) high availability edition for more stable production purpose.
+- [RDS PostgreSQL](https://www.alibabacloud.com/product/apsaradb-for-rds-postgresql)
+- [PolarDB MySQL/PostgreSQL](https://www.alibabacloud.com/product/polardb)
+In this tutorial, we will show the case of using [RDS PostgreSQL](https://www.alibabacloud.com/product/apsaradb-for-rds-postgresql) high availability edition for more stable production purpose.
 
 Deployment architecture:
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/azkaban/images/archi.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/archi.png)
 
 ---
 ### Index
 
-- [Step 1. Use Terraform to provision ECS and databases on Alibaba Cloud](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban#step-1-use-terraform-to-provision-ecs-and-database-on-alibaba-cloud)
-- [Step 2. Deploy and setup Azkaban on ECS with RDS MySQL](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban#step-2-deploy-and-setup-azkaban-on-ecs-with-rds-mysql)
-- [Step 3. Download and prepare demo Azkaban workflow project package](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban#step-3-download-and-prepare-demo-azkaban-workflow-project-package)
-- [Step 4. Deploy and run the demo Azkaban workflow jobs](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban#step-4-deploy-and-run-the-demo-azkaban-workflow-jobs)
-
+- [Step 1. Use Terraform to provision ECS and databases on Alibaba Cloud]()
 
 
 Execute the following command to install gcc, python, related python modules, Luigi, JDK 8, Git and PostgreSQL client.
@@ -124,6 +114,8 @@ luigid
 ```
 
 Once it is up and running, navigate to ``http://<ECS_EIP>:8082/``
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/data_pipeline.png)
 
 ```
 cd ~/opensource_with_apsaradb/luigi_metabase
