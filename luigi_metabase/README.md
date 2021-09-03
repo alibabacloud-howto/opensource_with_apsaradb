@@ -41,11 +41,25 @@ Password: N1cetest
 Business Owner user: owner@somebusiness.com
 Password: N1cetest
 
+```
+cd ~/adbpg_client_package/bin
+./psql -hpgm-3nsa364dun8rza5k168190.pg.rds.aliyuncs.com -p1921 -Udemo sales_dw
 
-Execute the command to start luigi daemon. Once it is up and running, navigate to ``http://<ECS_EIP>:8082/``
+\i ~/opensource_with_apsaradb/luigi_metabase/sales_dw_ddl.sql
+```
+
+
+Execute the command to start luigi daemon.
 
 ```
 luigid
+```
+
+Once it is up and running, navigate to ``http://<ECS_EIP>:8082/``
+
+```
+cd ~/opensource_with_apsaradb/luigi_metabase
+PYTHONPATH='.' luigi --module data_pipeline CompleteDataDumpLoad --date 2018-03-30
 ```
 
 ```
