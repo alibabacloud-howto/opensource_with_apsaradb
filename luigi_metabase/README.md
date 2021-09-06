@@ -26,7 +26,11 @@ Deployment architecture:
 ---
 ### Index
 
-- [Step 1. Use Terraform to provision ECS and databases on Alibaba Cloud]()
+- [Step 1. Use Terraform to provision ECS and databases on Alibaba Cloud](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/luigi_metabase#step-1-use-terraform-to-provision-ecs-and-database-on-alibaba-cloud)
+- [Step 2. Deploy and setup Luigi and Metabase on ECS with RDS PostgreSQL](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/luigi_metabase#step-2-deploy-and-setup-luigi-and-metabase-on-ecs-with-rds-postgresql)
+- [Step 3. Setup the demo RDS PostgreSQL database](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/luigi_metabase#step-3-setup-the-demo-rds-postgresql-database)
+- [Step 4. Run the demo ETL data pipeline on Luigi](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/luigi_metabase#step-4-run-the-demo-etl-data-pipeline-on-luigi)
+- [Step 5. View the data in demo RDS PostgreSQL and BI report on Metabase](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/luigi_metabase#step-5-view-the-data-in-demo-rds-postgresql-and-bi-report-on-metabase)
 
 ---
 ### Step 1. Use Terraform to provision ECS and database on Alibaba Cloud
