@@ -277,4 +277,5 @@ Then navigate to Metabase database ``Admin`` setting to update the target databa
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_dashboard_3.png)
 
-This tutorial is modified based on [https://github.com/abhishekzambre/data-warehouse](https://github.com/abhishekzambre/data-warehouse) to running on Alibaba Cloud. There are some errors in the original source code, I've already fixed them and made them all work on Alibaba Cloud.
+
+This tutorial is modified based on [https://github.com/abhishekzambre/data-warehouse](https://github.com/abhishekzambre/data-warehouse) to run on Alibaba Cloud. There are some errors in the original source code, I've already fixed them and made them all work on Alibaba Cloud.
