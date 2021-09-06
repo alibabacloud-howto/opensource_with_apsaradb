@@ -28,6 +28,34 @@ Deployment architecture:
 
 - [Step 1. Use Terraform to provision ECS and databases on Alibaba Cloud]()
 
+---
+### Step 1. Use Terraform to provision ECS and database on Alibaba Cloud
+
+Run the [terraform script](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/luigi_metabase/deployment/terraform/main.tf) to initialize the resources (in this tutorial, we use RDS PostgreSQL as backend database of Metabase and a RDS PostgreSQL as the demo database showing the ETL data pipeline via Luigi task and BI in Metabase, so ECS and 2 RDS PostgreSQL instances are included in the Terraform script). Please specify the necessary information and region to deploy.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/tf-parms.png)
+
+After the Terraform script execution finished, the ECS and RDS PostgreSQL instances information are listed as below.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/tf-done.png)
+
+- ``eip_ecs``: The public EIP of the ECS for Azkaban installation host
+- ``rds_pg_url_metabase_database``: The connection URL of the backend RDS PostgreSQL database for Metabase
+- ``rds_pg_port_metabase_database``: The connection port of the backend RDS PostgreSQL database for Metabase, by default, it is ``1921`` for RDS PostgreSQL 
+- ``rds_pg_url_demo_database``: The connection URL of the demo RDS PostgreSQL database using Luigi and Metabase
+- ``rds_pg_port_demo_database``: The connection Port of the demo RDS PostgreSQL database using Luigi and Metabase, by default, it is ``1921`` for RDS PostgreSQL 
+
+---
+### Step 2. Deploy and setup Luigi and Metabase on ECS with RDS PostgreSQL
+
+Please log on to ECS with ``ECS EIP``.
+
+```bash
+ssh root@<ECS_EIP>
+```
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/ecs-logon.png)
+
 
 Execute the following command to install gcc, python, related python modules, Luigi, JDK 8, Git and PostgreSQL client.
 
@@ -51,10 +79,16 @@ wget http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/181125/cn_z
 tar -xzvf adbpg_client_package.el7.x86_64.tar.gz
 ```
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/git-install-done.png)
+
+Execute the commands to checkout the project files from Github and navigate to the project directory.
+
 ```
 git clone https://github.com/alibabacloud-howto/opensource_with_apsaradb.git
 cd opensource_with_apsaradb/luigi_metabase/
 ```
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/git-checkout-done.png)
 
 In this tutorial, I show the Metabase execution approach via [running the Metabase JAR file](https://www.metabase.com/docs/latest/operations-guide/running-the-metabase-jar-file.html).
 So please execute the following commands to download the Metabase JAR file.
@@ -80,6 +114,10 @@ export MB_DB_HOST=<rds_pg_url_metabase_database>
 java -jar metabase.jar load-from-h2 ~/opensource_with_apsaradb/luigi_metabase/metabase/metabase.db
 ```
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_h2_pg_migration_command.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_h2_pg_migration.png)
+
 Then execute the command to start Metabase using the RDS PostgreSQL as the backend database. Please update ``<rds_pg_url_metabase_database>`` with the corresponding connection string.
 
 ```
@@ -92,44 +130,147 @@ export MB_DB_HOST=<rds_pg_url_metabase_database>
 java -jar metabase.jar
 ```
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_start_command.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_start_done.png)
+
 Once it is up and running, navigate to ``http://<ECS_EIP>:3000/``
 
-Admin User: admin@somebusiness.com
-Password: N1cetest
-Business Owner user: owner@somebusiness.com
-Password: N1cetest
+I've preset the following accounts in demo Metabase, please logon with the ``Admin User``.
+- ``Admin User``: ``admin@somebusiness.com``
+- ``Password``: ``N1cetest``
+- ``Business Owner user``: ``owner@somebusiness.com``
+- ``Password``: ``N1cetest``
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_logon.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_logon_done.png)
+
+---
+### Step 3. Setup the demo RDS PostgreSQL database
+
+Please log on to ECS with ``ECS EIP`` in another CLI window (DO NOT close the CLI window logged in Step 2).
+
+```bash
+ssh root@<ECS_EIP>
+```
+
+Before we demo the ETL data pipeline, let's execute the following commands to create the schema ``sales_dw`` and tables (CREATE TABLE DDL are within the SQL file [https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/luigi_metabase/sales_dw_ddl.sql](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/luigi_metabase/sales_dw_ddl.sql)) in the demo RDS PostgreSQL database.
+Please replace ``<rds_pg_url_demo_database>`` with the corresponding connection string of the demo RDS PostgreSQL instance.
 
 ```
 cd ~/adbpg_client_package/bin
-./psql -hpgm-3nsp9729e9aql1t9168190.pg.rds.aliyuncs.com -p1921 -Udemo sales_dw
+./psql -h<rds_pg_url_demo_database> -p1921 -Udemo sales_dw
+```
 
+In the PG client, execute the DDL SQL file and check that 6 empty tables are created.
+
+```
 \i ~/opensource_with_apsaradb/luigi_metabase/sales_dw_ddl.sql
 select tablename from pg_tables where schemaname='public';
 ```
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_demo_db.png)
 
-Execute the command to start luigi daemon.
+There are 3 tables as the source tables and 3 tables as the target tables in the demo ETL data pipeline:
+- ``product_info``: a source table in the demo ETL data pipeline
+- ``invoice``: a source table in the demo ETL data pipeline
+- ``customer_info``: a source table in the demo ETL data pipeline
+- ``invoice_time``: a target table in the demo ETL data pipeline
+- ``invoice_outliers`` a target table in the demo ETL data pipeline
+- ``association_rules`` a target table in the demo ETL data pipeline
+
+---
+### Step 4. Run the demo ETL data pipeline on Luigi
+
+Please log on to ECS with ``ECS EIP`` in another new CLI window (DO NOT close the CLI window logged in Step 2 and Step 3).
+
+```bash
+ssh root@<ECS_EIP>
+```
+
+Within this CLI window, execute the command to start luigi daemon.
 
 ```
 luigid
 ```
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/luigid.png)
+
 Once it is up and running, navigate to ``http://<ECS_EIP>:8082/``
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/luigi_main.png)
+
+Now, we can run the ETL data pipeline in Luigi. The following image shows the ETL data pipeline workflow in the demo.
+
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/data_pipeline.png)
+
+Basically, the full ETL data pipeline code are in [https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/luigi_metabase/data_pipeline.py](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/luigi_metabase/data_pipeline.py).
+It will load the raw data in the local ECS disk under [https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/luigi_metabase/data](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/luigi_metabase/data), then process and transform the data to local disk, and finally load the data into the RDS PostgreSQL database for Metabase BI reporting. The BI reports in Metabase has already been composed in this demo within Metabase.
+
+Switch to the CLI window created at Step 3. Before execution, please edit the pipeline python code to change the demo database connection string URL to the value of ``<rds_pg_url_demo_database>``.
+
+```
+cd ~/opensource_with_apsaradb/luigi_metabase
+vim data_pipeline.py
+```
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/pipeline_code.png)
+
+Then execute the following commands to kick off a pipeline execution for the data at ``2018-03-30`` in this CLI window.
 
 ```
 cd ~/opensource_with_apsaradb/luigi_metabase
 PYTHONPATH='.' luigi --module data_pipeline CompleteDataDumpLoad --date 2018-03-30
 ```
 
+The data pipeline execution summary shows at the end.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/pipeline_execution.png)
+
+Refresh the Luigi web page ``http://<ECS_EIP>:8082/``, you can see the data pipeline execution information.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/luigi_web_1.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/luigi_web_2.png)
+
+---
+### Step 5. View the data in demo RDS PostgreSQL and BI report on Metabase
+
+In the CLI window created at Step 3, execute the following commands to verify the data processed in the data pipeline.
+Please replace ``<rds_pg_url_demo_database>`` with the corresponding connection string of the demo RDS PostgreSQL instance.
 
 ```
 cd ~/adbpg_client_package/bin
-./psql -hpgm-3nsa364dun8rza5k168190.pg.rds.aliyuncs.com -p1921 -Udemo sales_dw
-select tablename from pg_tables where schemaname='public';
+./psql -h<rds_pg_url_demo_database> -p1921 -Udemo sales_dw
 ```
 
+In the PG client, execute the SQL to view the data.
 
+```
+select tablename from pg_tables where schemaname='public';
+select count(*) from association_rules; 
+select count(*) from product_info;
+select count(*) from invoice;
+select count(*) from customer_info;
+select count(*) from invoice_time;
+select count(*) from invoice_outliers;
+```
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/data_verify.png)
+
+Then navigate to Metabase database ``Admin`` setting to update the target database to the demo RDS PostgreSQL database ``<rds_pg_url_demo_database>``.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_admin.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_database.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_exit_admin.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_dashboard_1.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_dashboard_2.png)
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/luigi_metabase/images/metabase_dashboard_3.png)
 
 This tutorial is modified based on [https://github.com/abhishekzambre/data-warehouse](https://github.com/abhishekzambre/data-warehouse) to running on Alibaba Cloud. There are some errors in the original source code, I've already fixed them and made them all work on Alibaba Cloud.
