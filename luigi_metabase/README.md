@@ -160,7 +160,7 @@ ssh root@<ECS_EIP>
 ```
 
 Before we demo the ETL data pipeline, let's execute the following commands to create the schema ``sales_dw`` and tables (CREATE TABLE DDL are within the SQL file [https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/luigi_metabase/sales_dw_ddl.sql](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/luigi_metabase/sales_dw_ddl.sql)) in the demo RDS PostgreSQL database.
-Please replace ``<rds_pg_url_demo_database>`` with the corresponding connection string of the demo RDS PostgreSQL instance.
+Please replace ``<rds_pg_url_demo_database>`` with the corresponding connection string of the demo RDS PostgreSQL instance. When prompting the password of connecting to the schema ``sales_dw``, please input ``N1cetest``, which is preset in the terraform provision script in Step 1. If you've already changed it, please update accordingly.
 
 ```
 cd ~/adbpg_client_package/bin
@@ -242,7 +242,7 @@ Refresh the Luigi web page ``http://<ECS_EIP>:8082/``, you can see the data pipe
 ### Step 5. View the data in demo RDS PostgreSQL and BI report on Metabase
 
 In the CLI window created at Step 3, execute the following commands to verify the data processed in the data pipeline.
-Please replace ``<rds_pg_url_demo_database>`` with the corresponding connection string of the demo RDS PostgreSQL instance.
+Please replace ``<rds_pg_url_demo_database>`` with the corresponding connection string of the demo RDS PostgreSQL instance. When prompting the password of connecting to the schema ``sales_dw``, please input ``N1cetest``, which is preset in the terraform provision script in Step 1. If you've already changed it, please update accordingly.
 
 ```
 cd ~/adbpg_client_package/bin
