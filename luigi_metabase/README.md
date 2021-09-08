@@ -52,7 +52,7 @@ After the Terraform script execution finished, the ECS and RDS PostgreSQL instan
 ---
 ### Step 2. Deploy and setup Luigi and Metabase on ECS with RDS PostgreSQL
 
-Please log on to ECS with ``ECS EIP``.
+Please log on to ECS with ``ECS EIP``. By default, the password is ``N1cetest``, which is preset in the terraform provision script in Step 1. If you've already changed it, please update accordingly.
 
 ```bash
 ssh root@<ECS_EIP>
