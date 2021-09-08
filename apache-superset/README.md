@@ -45,7 +45,7 @@ http://<ECS_EIP>
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/tf_done.png)
 
-Please log on to ECS and visit the Superset credential file to get the initial administrator username and password.
+Please log on to ECS and visit the Superset credential file to get the initial administrator username and password. By default, the password is ``N1cetest``, which is preset in the terraform provision script in Step 1. If you've already changed it, please update accordingly.
 
 ```bash
 ssh root@<ECS_EIP>
