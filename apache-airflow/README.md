@@ -47,7 +47,7 @@ After the Terraform script execution finished, the ECS and RDS PostgreSQL instan
 - ``rds_pg_url_airflow_database``: The connection URL of the backend database for Airflow
 - ``rds_pg_url_airflow_demo_database``: The connection URL of the demo database using Airflow
 
-The database port for RDS PostgreSQL is ``1921`` by default.
+The database port for RDS PostgreSQL is ``5432`` by default.
 
 ### Step 2. Deploy and setup Airflow on ECS with RDS PostgreSQL
 
@@ -153,7 +153,7 @@ Execute the following commands for the source database:
 
 ```
 cd ~/adbpg_client_package/bin
-./psql -h<rds_pg_url_airflow_demo_database> -p1921 -Udemo northwind_source
+./psql -h<rds_pg_url_airflow_demo_database> -p5432 -Udemo northwind_source
 
 \i ~/airflow/northwind_ddl.sql
 \i ~/airflow/northwind_data_source.sql
@@ -168,7 +168,7 @@ select count(*) from orders;
 Execute the following commands for the target database:
 
 ```
-./psql -h<rds_pg_url_airflow_demo_database> -p1921 -Udemo northwind_target
+./psql -h<rds_pg_url_airflow_demo_database> -p5432 -Udemo northwind_target
 
 \i ~/airflow/northwind_ddl.sql
 \i ~/airflow/northwind_data_target.sql
