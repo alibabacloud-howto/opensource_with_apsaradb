@@ -199,6 +199,7 @@ Download and deploy (put into the ``dags`` directory) the migration task python 
 ```
 cd ~/airflow/dags
 wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-airflow/northwind_migration.py
+vim northwind_migration.py
 ```
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/dag.png)
