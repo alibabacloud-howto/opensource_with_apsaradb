@@ -182,8 +182,15 @@ Then, a multi-executor Azkaban instance is ready for use. Open a web browser and
 Azkaban relies on job files in a package to deploy and run the workflow. I've prepared a demo project with scripts, SQL files and job files on this project github.
 THIS WILL BE DONE ON YOUR LOCAL COMPUTER. In the local computer, checkout the project to local from github. Please make sure that you have the Git installed on your local computer.
 
+Usually, in [Step 1](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/azkaban#step-1-use-terraform-to-provision-ecs-and-database-on-alibaba-cloud), if we have already git clone this tutorial project, then we skip this step.
+
 ```
 git clone https://github.com/alibabacloud-howto/opensource_with_apsaradb.git
+```
+
+Then navigate to see the Azkaban demo ETL job files:
+
+```
 cd opensource_with_apsaradb/azkaban/project-demo
 ls -l
 ```
