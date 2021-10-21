@@ -8,8 +8,8 @@ try:
     conn_src = psycopg2.connect(database='northwind_source',
                                 user='demo',
                                 password='N1cetest',
-                                host='pgm-xxxx.pg.rds.aliyuncs.com',
-                                port='1921')
+                                host='pgm-3ns1uqdq892od196168190.pg.rds.aliyuncs.com',
+                                port='5432')
     conn_src.set_isolation_level(
         psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
     cur_src = conn_src.cursor()
@@ -17,8 +17,8 @@ try:
     conn_des = psycopg2.connect(database='northwind_target',
                                 user='demo',
                                 password='N1cetest',
-                                host='pgm-xxxx.pg.rds.aliyuncs.com',
-                                port='1921')
+                                host='pgm-3ns1uqdq892od196168190.pg.rds.aliyuncs.com',
+                                port='5432')
     conn_des.set_isolation_level(
         psycopg2.extensions.ISOLATION_LEVEL_AUTOCOMMIT)
     cur_des = conn_des.cursor()

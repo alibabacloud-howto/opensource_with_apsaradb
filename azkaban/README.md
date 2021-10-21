@@ -103,13 +103,16 @@ Then execute the following commands to create all tables needed for Azkaban on R
 ```
 cd ~/azkaban/azkaban-db/build/distributions
 unzip azkaban-db-*.zip
+```
+
+```
 mysql -h<rds_mysql_url> -P3306 -uazkaban -pN1cetest azkaban < ~/azkaban/azkaban-db/build/distributions/azkaban-db-*/create-all-sql-*.sql
 ```
 
 Then connect to the RDS MySQL again, and execute ``show tables`` to view the created tables for Azkaban.
 
 ```
-mysql -hrm-3nssusij8bbe3a9c3.mysql.rds.aliyuncs.com -P3306 -uazkaban -pN1cetest azkaban
+mysql -h<rds_mysql_url> -P3306 -uazkaban -pN1cetest azkaban
 ```
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/azkaban/images/azkaban_mysql_tables.png)
@@ -177,7 +180,7 @@ Then, a multi-executor Azkaban instance is ready for use. Open a web browser and
 ### Step 3. Download and prepare demo Azkaban workflow project package
 
 Azkaban relies on job files in a package to deploy and run the workflow. I've prepared a demo project with scripts, SQL files and job files on this project github.
-In the local computer, checkout the project to local from github. Please make sure that you have the Git installed on your local computer.
+THIS WILL BE DONE ON YOUR LOCAL COMPUTER. In the local computer, checkout the project to local from github. Please make sure that you have the Git installed on your local computer.
 
 ```
 git clone https://github.com/alibabacloud-howto/opensource_with_apsaradb.git
@@ -201,9 +204,21 @@ We can see the demo Azkaban project files:
 
 Edit the Azkaban project files accordingly for connecting to the target RDS PostgreSQL demo database. 
 
+```
+vim _1_prepare_source_db.py
+```
+
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/azkaban/images/edit_job_py_1.png)
 
+```
+vim _2_prepare_target_db.py
+```
+
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/azkaban/images/edit_job_py_2.png)
+
+```
+_3_data_migration.py
+```
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/azkaban/images/edit_job_py_3.png)
 
@@ -252,7 +267,7 @@ Click ``Job List`` tab, we can see the execution status of 3 jobs of this demo w
 
 Now, let's connect to the demo RDS PostgreSQL source and target databases to verify the data.
 
-Execute the following commands to connect to the source database ``northwind_source`` and check the data in tables ``products`` and ``orders``. Please replace ``<rds_pg_url_azkaban_demo_database>`` with the RDS PostgreSQL connection string.
+Execute the following commands to connect to the source database ``northwind_source`` and check the data in tables ``products`` and ``orders``. Please replace ``<rds_pg_url_azkaban_demo_database>`` with the RDS PostgreSQL connection string, the password for RDS PostgreSQL has been preset to ``N1cetest``.
 
 ```
 cd ~/adbpg_client_package/bin
@@ -267,7 +282,7 @@ select count(*) from orders;
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/azkaban/images/job_done_db_verify_1.png)
 
-Execute the following commands to connect to the target database ``northwind_target`` and check the data in tables ``products`` and ``orders``. Please replace ``<rds_pg_url_azkaban_demo_database>`` with the RDS PostgreSQL connection string.
+Execute the following commands to connect to the target database ``northwind_target`` and check the data in tables ``products`` and ``orders``. Please replace ``<rds_pg_url_azkaban_demo_database>`` with the RDS PostgreSQL connection string, the password for RDS PostgreSQL has been preset to ``N1cetest``.
 
 ```
 cd ~/adbpg_client_package/bin
