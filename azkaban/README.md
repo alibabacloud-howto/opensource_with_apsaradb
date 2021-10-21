@@ -50,7 +50,7 @@ After the Terraform script execution finished, the ECS, RDS MySQL and RDS Postgr
 - ``eip_ecs``: The public EIP of the ECS for Azkaban installation host
 - ``rds_mysql_url``: The connection URL of the backend RDS MySQL database for Azkaban
 - ``rds_pg_url_azkaban_demo_database``: The connection URL of the demo RDS PostgreSQL database using Azkaban
-- ``rds_pg_port_azkaban_demo_database``: The connection Port of the demo RDS PostgreSQL database using Azkaban, by default, it is ``1921`` for RDS PostgreSQL 
+- ``rds_pg_port_azkaban_demo_database``: The connection Port of the demo RDS PostgreSQL database using Azkaban, by default, it is ``5432`` for RDS PostgreSQL (if it was set to ``1921``, please use ``1921`` accordingly)
 
 ---
 ### Step 2. Deploy and setup Azkaban on ECS with RDS MySQL
@@ -256,7 +256,7 @@ Execute the following commands to connect to the source database ``northwind_sou
 
 ```
 cd ~/adbpg_client_package/bin
-./psql -h<rds_pg_url_azkaban_demo_database> -p1921 -Udemo northwind_source
+./psql -h<rds_pg_url_azkaban_demo_database> -p5432 -Udemo northwind_source
 ```
 
 ```
@@ -271,7 +271,7 @@ Execute the following commands to connect to the target database ``northwind_tar
 
 ```
 cd ~/adbpg_client_package/bin
-./psql -h<rds_pg_url_azkaban_demo_database> -p1921 -Udemo northwind_target
+./psql -h<rds_pg_url_azkaban_demo_database> -p5432 -Udemo northwind_target
 ```
 
 ```
