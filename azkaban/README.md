@@ -39,6 +39,8 @@ Deployment architecture:
 ---
 ### Step 1. Use Terraform to provision ECS and database on Alibaba Cloud
 
+If you are the 1st time to use Terraform, please refer to [https://github.com/alibabacloud-howto/terraform-templates](https://github.com/alibabacloud-howto/terraform-templates) to learn how to install and use the Terraform on different operating systems.
+
 Run the [terraform script](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/azkaban/deployment/terraform/main.tf) to initialize the resources (in this tutorial, we use RDS MySQL as backend database of Azkaban and a RDS PostgreSQL as the demo database showing the data preparation and migration via Azkaban task, so ECS, RDS MySQL and RDS PostgreSQL instances are included in the Terraform script). Please specify the necessary information and region to deploy.
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-airflow/images/tf-parms.png)

@@ -30,6 +30,8 @@ Deployment architecture:
 ---
 ### Step 1. Use Terraform to provision ECS image and database on Alibaba Cloud
 
+If you are the 1st time to use Terraform, please refer to [https://github.com/alibabacloud-howto/terraform-templates](https://github.com/alibabacloud-howto/terraform-templates) to learn how to install and use the Terraform on different operating systems.
+
 Run the [terraform script](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-superset/deployment/terraform/main.tf) to initialize the resources. 
 Within the terraform script, please use the right ``Image ID`` of [Superset image on the corresponding region](https://marketplace.alibabacloud.com/products/56698003/Apache_em_Superset_em_on_Ubuntu-sgcmjj00025684.html).
 

@@ -25,7 +25,7 @@ Dispatch docker image depends on an open source PostgreSQL by default. To enhanc
 ---
 ### Step 1. Use Terraform to provision ECS and database on Alibaba Cloud
 
-Follow this guide (https://www.alibabacloud.com/help/doc-detail/91289.html) to install and configure the Terraform client. Please skip this step if you have already setup the Terraform on your environment.
+Follow this guide (https://www.alibabacloud.com/help/doc-detail/91289.html) to install and configure the Terraform client. Please skip this step if you have already setup the Terraform on your environment. Or if you are the 1st time to use Terraform, please refer to [https://github.com/alibabacloud-howto/terraform-templates](https://github.com/alibabacloud-howto/terraform-templates) to learn how to install and use the Terraform on different operating systems.
 
 Use terraform to provision EIP, ECS and RDS PostgreSQL instances that used in this solution against this .tf file: https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/netflix_dispatch/deployment/terraform/main.tf
 
