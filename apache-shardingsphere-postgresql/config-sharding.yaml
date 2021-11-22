@@ -26,7 +26,7 @@ schemaName: sharding_db
 
 dataSources:
   db0:
-    url: jdbc:postgresql://pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com:5432/db0
+    url: jdbc:postgresql://pgm-xxxx.pg.rds.aliyuncs.com:5432/db0
     username: r1
     password: N1cetest
     connectionTimeoutMilliseconds: 30000
@@ -35,7 +35,7 @@ dataSources:
     maxPoolSize: 65
     minPoolSize: 1
   db1:
-    url: jdbc:postgresql://pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com:5432/db1
+    url: jdbc:postgresql://pgm-xxxx.pg.rds.aliyuncs.com:5432/db1
     username: r1
     password: N1cetest
     connectionTimeoutMilliseconds: 30000
@@ -44,7 +44,7 @@ dataSources:
     maxPoolSize: 65
     minPoolSize: 1
   db2:
-    url: jdbc:postgresql://pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com:5432/db2
+    url: jdbc:postgresql://pgm-xxxx.pg.rds.aliyuncs.com:5432/db2
     username: r1
     password: N1cetest
     connectionTimeoutMilliseconds: 30000
@@ -53,7 +53,7 @@ dataSources:
     maxPoolSize: 65
     minPoolSize: 1
   db3:
-    url: jdbc:postgresql://pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com:5432/db3
+    url: jdbc:postgresql://pgm-xxxx.pg.rds.aliyuncs.com:5432/db3
     username: r1
     password: N1cetest
     connectionTimeoutMilliseconds: 30000
