@@ -24,9 +24,9 @@ Deployment architecture of this tutorial:
 ---
 ### Index
 
-- [Step 1. Use Terraform to provision ECS and RDS for PostgreSQL database on Alibaba Cloud]()
-- [Step 2. Install and deploy ShardingSphere proxy on ECS]()
-- [Step 3. Verify the deployment and sharding service]()
+- [Step 1. Use Terraform to provision ECS and RDS for PostgreSQL database on Alibaba Cloud](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-shardingsphere-postgresql#step-1-use-terraform-to-provision-ecs-and-rds-for-postgresql-database-on-alibaba-cloud)
+- [Step 2. Install and deploy ShardingSphere proxy on ECS](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-shardingsphere-postgresql#step-2-install-and-deploy-shardingsphere-proxy-on-ecs)
+- [Step 3. Verify the deployment and sharding service](https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-shardingsphere-postgresql#step-3-verify-the-deployment-and-sharding-service)
 
 ---
 ### Step 1. Use Terraform to provision ECS and RDS for PostgreSQL database on Alibaba Cloud
