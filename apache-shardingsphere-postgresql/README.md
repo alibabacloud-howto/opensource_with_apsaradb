@@ -65,9 +65,9 @@ ssh root@<ECS_EIP>
 Execute the following commands to install Java 8, PostgreSQL client, etc.
 
 ```bash
-sudo apt update && apt -y install openjdk-8-jdk
-sudo apt update && apt -y install postgresql-client
-sudo apt-get -y install postgresql-contrib
+apt update && apt -y install openjdk-8-jdk
+apt update && apt -y install postgresql-client-common
+apt update && apt -y install postgresql-client
 ```
 
 Execute the following commands to download and unzip the ShardingSphere proxy. In this tutorial, I am using the ``apache-shardingsphere-5.0.0``.
@@ -102,10 +102,11 @@ vim ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/conf/config-sharding.
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/config-sharding.png)
 
-Now, the configuration finished, execute the following commands to start the ShardingSphere proxy. Let's use the port ``8001`` as the service port of the ShardingSphere proxy.
+Now, the configuration finished, execute the following commands to start the ShardingSphere proxy. Let's use the port ``8001`` as the service port of the ShardingSphere proxy. By default, the ShardingSphere proxy uses ``3307`` as the service port.
 
 ```bash
-sh ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/bin/start.sh 8001
+cd ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/bin/
+./start.sh 8001
 ```
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/start_proxy.png)
@@ -128,6 +129,7 @@ sh ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/bin/stop.sh
 ### Step 3. Verify the deployment and sharding service
 
 Now, let's verify the ShardingSphere proxy. Execute the commands to connect to the sharding proxy, execute the CREATE TABLE DDL commands, insert some records and verify the data.
+The password used for ShardingSphere proxy is predefine as ``N1cetest`` in https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-shardingsphere-postgresql/server.yaml.
 
 ```bash
 psql -h 127.0.0.1 -p 8001 -U r1 sharding_db
@@ -150,14 +152,41 @@ select * from t_order;
 select * from t_order where user_id=1;
 ```
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/verify-1.png)
+
 This shows the sharding service works perfectly. And let's connect to the physical RDS for PostgreSQL database directly to view the data records distribution in these 4 RDS for PostgreSQL database instances.
+Please remember to use the RDS for PostgreSQL database instance connection string to replace ``<RDS_PG_INSTANCE_0_URL>``, ``<RDS_PG_INSTANCE_1_URL>``, ``<RDS_PG_INSTANCE_2_URL>`` and ``<RDS_PG_INSTANCE_3_URL>``.
+The password used for RDS for PostgreSQL database is predefine as ``N1cetest`` in https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-shardingsphere-postgresql/deployment/terraform/main.tf.
 
 ```bash
-psql -h pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com -p 5432 -U r1 db0
+psql -h <RDS_PG_INSTANCE_0_URL> -p 5432 -U r1 db0
+
 select tablename from pg_tables where schemaname='public';
+select * from t_order_0;
 ```
 
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/verify-2.png)
 
-psql -h pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com -p 5432 -U r1 db1
-psql -h pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com -p 5432 -U r1 db2
-psql -h pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com -p 5432 -U r1 db3
+Similar with ``db1``, ``db2`` and ``db3``.
+
+```bash
+psql -h <RDS_PG_INSTANCE_1_URL> -p 5432 -U r1 db1
+
+select tablename from pg_tables where schemaname='public';
+select * from t_order_1;
+```
+
+```bash
+psql -h <RDS_PG_INSTANCE_2_URL> -p 5432 -U r1 db2
+
+select tablename from pg_tables where schemaname='public';
+select * from t_order_0;
+```
+
+```bash
+psql -h <RDS_PG_INSTANCE_3_URL> -p 5432 -U r1 db3
+
+select tablename from pg_tables where schemaname='public';
+select * from t_order_1;
+```
+
