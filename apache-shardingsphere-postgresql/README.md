@@ -65,9 +65,9 @@ ssh root@<ECS_EIP>
 Execute the following commands to install Java 8, PostgreSQL client, etc.
 
 ```bash
-apt update && apt -y install openjdk-8-jdk
-apt update && apt -y install postgresql-client
-sudo apt-get install postgresql-contrib
+sudo apt update && apt -y install openjdk-8-jdk
+sudo apt update && apt -y install postgresql-client
+sudo apt-get -y install postgresql-contrib
 ```
 
 Execute the following commands to download and unzip the ShardingSphere proxy. In this tutorial, I am using the ``apache-shardingsphere-5.0.0``.
@@ -78,27 +78,64 @@ wget https://dlcdn.apache.org/shardingsphere/5.0.0/apache-shardingsphere-5.0.0-s
 tar -xzvf apache-shardingsphere-5.0.0-shardingsphere-proxy-bin.tar.gz
 ```
 
+Execute the following commands to backup the original configuration file ``server.yaml`` and ``config-sharding.yaml``.
 
+```bash
 cd ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/conf
 mv server.yaml server.yaml_backup
 mv config-sharding.yaml config-sharding.yaml_backup
+```
 
-cd apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/bin
-./start.sh 8001
+Download the ``server.yaml`` and ``config-sharding.yaml`` from this tutorial github project. I've predefined the sharding mapping logic and all related routing configuration in the ``config-sharding.yaml``. For details, please check carefully with this file.
 
+```bash
+cd ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/conf
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-shardingsphere-postgresql/server.yaml
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-shardingsphere-postgresql/config-sharding.yaml
+```
+
+Now, edit the downloaded ``config-sharding.yaml`` with RDS for PostgreSQL instances connection information accordingly. All 4 RDS for PostgreSQL instances connection information are in ``Step 1``.
+
+```bash
+vim ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/conf/config-sharding.yaml
+```
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/config-sharding.png)
+
+Now, the configuration finished, execute the following commands to start the ShardingSphere proxy. Let's use the port ``8001`` as the service port of the ShardingSphere proxy.
+
+```bash
+sh ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/bin/start.sh 8001
+```
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/start_proxy.png)
+
+Execute the following command to verify the proxy log. If you have see the following message ``ShardingSphere-Proxy start success``, then the proxy started successfully.
+
+```bash
 less ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/logs/stdout.log 
+```
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/start_proxy_success.png)
+
+If you want to stop the proxy, please execute the following command.
+
+```bash
+sh ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/bin/stop.sh
+```
 
 ---
 ### Step 3. Verify the deployment and sharding service
 
+Now, let's verify the ShardingSphere proxy. Execute the commands to connect to the sharding proxy, execute the CREATE TABLE DDL commands, insert some records and verify the data.
 
-
-
+```bash
 psql -h 127.0.0.1 -p 8001 -U r1 sharding_db
+```
 
+```bash
 create table t_order(order_id int8 primary key, user_id int8, info text, c1 int, crt_time timestamp);  
 create table t_order_item(order_item_id int8 primary key, order_id int8, user_id int8, info text, c1 int, c2 int, c3 int, c4 int, c5 int, crt_time timestamp);
-
 
 insert into t_order (user_id, info, c1, crt_time) values (0,'a',1,now());  
 insert into t_order (user_id, info, c1, crt_time) values (1,'b',2,now());  
@@ -109,14 +146,17 @@ insert into t_order (user_id, info, c1, crt_time) values (5,'f',6,now());
 insert into t_order (user_id, info, c1, crt_time) values (6,'g',7,now());  
 insert into t_order (user_id, info, c1, crt_time) values (7,'h',8,now());
 
-
 select * from t_order;
-
 select * from t_order where user_id=1;
+```
 
+This shows the sharding service works perfectly. And let's connect to the physical RDS for PostgreSQL database directly to view the data records distribution in these 4 RDS for PostgreSQL database instances.
 
+```bash
 psql -h pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com -p 5432 -U r1 db0
 select tablename from pg_tables where schemaname='public';
+```
+
 
 psql -h pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com -p 5432 -U r1 db1
 psql -h pgm-3ns07zdnyzidnqjr168190.pg.rds.aliyuncs.com -p 5432 -U r1 db2
