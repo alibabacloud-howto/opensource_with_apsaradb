@@ -101,8 +101,8 @@ Download the ``server.yaml`` and ``config-sharding.yaml`` from this tutorial git
 
 ```bash
 cd ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/conf
-wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-shardingsphere-postgresql/server.yaml
-wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-shardingsphere-postgresql/config-sharding.yaml
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-shardingsphere-mysql/server.yaml
+wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/apache-shardingsphere-mysql/config-sharding.yaml
 ```
 
 Now, edit the downloaded ``config-sharding.yaml`` with RDS for MySQL instances connection information accordingly. All 4 RDS for MySQL instances connection information are in ``Step 1``.
@@ -111,7 +111,7 @@ Now, edit the downloaded ``config-sharding.yaml`` with RDS for MySQL instances c
 vim ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/conf/config-sharding.yaml
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/config-sharding.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-mysql/images/config-sharding.png)
 
 Now, the configuration finished, execute the following commands to start the ShardingSphere proxy. Let's use the port ``8001`` as the service port of the ShardingSphere proxy. By default, the ShardingSphere proxy uses ``3307`` as the service port.
 
@@ -120,7 +120,7 @@ cd ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/bin/
 ./start.sh 8001
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/start_proxy.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-mysql/images/start_proxy.png)
 
 Execute the following command to verify the proxy log. If you have see the following message ``ShardingSphere-Proxy start success``, then the proxy started successfully.
 
@@ -128,7 +128,7 @@ Execute the following command to verify the proxy log. If you have see the follo
 less ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/logs/stdout.log 
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/start_proxy_success.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-mysql/images/start_proxy_success.png)
 
 If you want to stop the proxy, please execute the following command.
 
@@ -140,15 +140,15 @@ sh ~/apache-shardingsphere-5.0.0-shardingsphere-proxy-bin/bin/stop.sh
 ### Step 3. Verify the deployment and sharding service
 
 Now, let's verify the ShardingSphere proxy. Execute the commands to connect to the sharding proxy, execute the CREATE TABLE DDL commands, insert some records and verify the data.
-The password used for ShardingSphere proxy is predefine as ``N1cetest`` in https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-shardingsphere-postgresql/server.yaml.
+The password used for ShardingSphere proxy is predefine as ``N1cetest`` in https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-shardingsphere-mysql/server.yaml.
 
 ```bash
-psql -h 127.0.0.1 -p 8001 -U r1 sharding_db
+mysql -h 127.0.0.1 -P 8001 -u r1 sharding_db -p
 ```
 
 ```bash
-create table t_order(order_id int8 primary key, user_id int8, info text, c1 int, crt_time timestamp);  
-create table t_order_item(order_item_id int8 primary key, order_id int8, user_id int8, info text, c1 int, c2 int, c3 int, c4 int, c5 int, crt_time timestamp);
+create table t_order(order_id bigint, user_id smallint, info text, c1 smallint, crt_time timestamp, PRIMARY KEY ( order_id ));  
+create table t_order_item(order_item_id bigint, order_id smallint, user_id smallint, info text, c1 smallint, c2 smallint, c3 smallint, c4 smallint, c5 smallint, crt_time timestamp, PRIMARY KEY ( order_item_id ));
 
 insert into t_order (user_id, info, c1, crt_time) values (0,'a',1,now());  
 insert into t_order (user_id, info, c1, crt_time) values (1,'b',2,now());  
@@ -163,41 +163,41 @@ select * from t_order;
 select * from t_order where user_id=1;
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/verify-1.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-mysql/images/verify-1.png)
 
 This shows the sharding service works perfectly. And let's connect to the physical RDS for MySQL database directly to view the data records distribution in these 4 RDS for MySQL database instances.
-Please remember to use the RDS for MySQL database instance connection string to replace ``<rds_mysql_INSTANCE_0_URL>``, ``<rds_mysql_INSTANCE_1_URL>``, ``<rds_mysql_INSTANCE_2_URL>`` and ``<rds_mysql_INSTANCE_3_URL>``.
-The password used for RDS for MySQL database is predefine as ``N1cetest`` in https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-shardingsphere-postgresql/deployment/terraform/main.tf.
+Please remember to use the RDS for MySQL database instance connection string to replace ``<RDS_MYSQL_INSTANCE_0_URL>``, ``<RDS_MYSQL_INSTANCE_1_URL>``, ``<RDS_MYSQL_INSTANCE_2_URL>`` and ``<RDS_MYSQL_INSTANCE_3_URL>``.
+The password used for RDS for MySQL database is predefine as ``N1cetest`` in https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-shardingsphere-mysql/deployment/terraform/main.tf.
 
 ```bash
-psql -h <rds_mysql_INSTANCE_0_URL> -p 5432 -U r1 db0
+mysql -h <RDS_MYSQL_INSTANCE_0_URL> -P 3306 -u r1 db0 -p
 
-select tablename from pg_tables where schemaname='public';
+show tables;
 select * from t_order_0;
 ```
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-postgresql/images/verify-2.png)
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-shardingsphere-mysql/images/verify-2.png)
 
 Similar with ``db1``, ``db2`` and ``db3``.
 
 ```bash
-psql -h <rds_mysql_INSTANCE_1_URL> -p 5432 -U r1 db1
+mysql -h <RDS_MYSQL_INSTANCE_1_URL> -P 3306 -u r1 db1 -p
 
-select tablename from pg_tables where schemaname='public';
+show tables;
 select * from t_order_1;
 ```
 
 ```bash
-psql -h <rds_mysql_INSTANCE_2_URL> -p 5432 -U r1 db2
+mysql -h <RDS_MYSQL_INSTANCE_2_URL> -P 3306 -u r1 db2 -p
 
-select tablename from pg_tables where schemaname='public';
+show tables;
 select * from t_order_0;
 ```
 
 ```bash
-psql -h <rds_mysql_INSTANCE_3_URL> -p 5432 -U r1 db3
+mysql -h <RDS_MYSQL_INSTANCE_3_URL> -P 3306 -u r1 db3 -p
 
-select tablename from pg_tables where schemaname='public';
+show tables;
 select * from t_order_1;
 ```
 
