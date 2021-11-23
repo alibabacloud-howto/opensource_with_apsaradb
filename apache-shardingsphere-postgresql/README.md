@@ -1,4 +1,4 @@
-# Deploy Sharding Service with Apache ShardingSphere on RDS for PostgreSQL
+# Deploy Sharding Service with Apache ShardingSphere Proxy on RDS for PostgreSQL
 
 You can access the tutorial artifact including deployment script (Terraform), related source code, sample data and instruction guidance from the github project:
 https://github.com/alibabacloud-howto/opensource_with_apsaradb/tree/main/apache-shardingsphere-postgresql
