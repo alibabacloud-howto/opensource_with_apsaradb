@@ -73,7 +73,6 @@ On the Superset web page, go to ``Data`` -> ``Databases`` to add RDS PostgreSQL 
 In the ``SQLALCHEMY URI``, input the RDS PostgreSQL URI following this pattern: ``postgresql://<username>:<password>@<rds_postgresql_domain>:<rds_postgresql_port>/<schema>``, such as ``postgresql://superset:superset@pgm-gs5n44yc841r4y5y70490.pgsql.singapore.rds.aliyuncs.com:1921/superset``.
 
 Then you can setup ``Dataset``, ``Chart``, ``Dashboard`` or work with other BI features on Superset.
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/covid-19_dashboard.png)
 
 You can use Superset to connect to the following database types on Alibaba Cloud:
 - [RDS MySQL](https://www.alibabacloud.com/product/apsaradb-for-rds-mysql), connection URI reference: [https://superset.apache.org/docs/databases/mysql](https://superset.apache.org/docs/databases/mysql)
