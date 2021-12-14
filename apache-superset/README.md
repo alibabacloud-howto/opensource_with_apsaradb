@@ -15,8 +15,6 @@ To enhance with the database high availability behind the Superset data explorat
 In this tutorial, we will use the [Superset image](https://marketplace.alibabacloud.com/products/56698003/Apache_em_Superset_em_on_Ubuntu-sgcmjj00025684.html) in Alibaba Cloud Marketplace, which is well packaged and configured for easy starting and future version upgrading.
 For more administration guide of this Superset image, please refer to: https://support.websoft9.com/docs/superset
 
-![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/worldbank_dashboard.png)
-
 Deployment architecture:
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-superset/images/archi.png)
