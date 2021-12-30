@@ -1,5 +1,16 @@
 
+
+```
+cd ~/cube.js/examples/react-dashboard
+```
+
+```
+vim docker-compose.yml
+```
+
+```
 docker-compose up
+```
 
 <ECS_EIP>:4000
 
