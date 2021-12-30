@@ -8,7 +8,7 @@ services:
       - 3001:3001  # Dashboard app, if created
     environment:
       - CUBEJS_DB_TYPE=postgres
-      - CUBEJS_DB_HOST=pgm-3nsl1s6gdx2sh694195190.pg.rds.aliyuncs.com
+      - CUBEJS_DB_HOST=pgm-xxxxxx.pg.rds.aliyuncs.com
       - CUBEJS_DB_USER=cubejs
       - CUBEJS_DB_PASS=N1cetest
       - CUBEJS_DB_NAME=ecom
