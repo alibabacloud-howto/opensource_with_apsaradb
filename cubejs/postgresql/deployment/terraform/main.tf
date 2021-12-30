@@ -19,12 +19,12 @@ resource "alicloud_security_group" "group" {
   vpc_id      = alicloud_vpc.vpc.id
 }
 
-resource "alicloud_security_group_rule" "allow_http_3001" {
+resource "alicloud_security_group_rule" "allow_http_3000" {
   type              = "ingress"
   ip_protocol       = "tcp"
   nic_type          = "intranet"
   policy            = "accept"
-  port_range        = "3001/3001"
+  port_range        = "3000/3000"
   priority          = 1
   security_group_id = alicloud_security_group.group.id
   cidr_ip           = "0.0.0.0/0"
@@ -182,6 +182,7 @@ resource "null_resource" "setup" {
     inline = [
       "sudo apt update",
       "sudo apt-get update",
+      "sudo apt install npm -y",
       "sudo apt install docker.io -y",
       "sudo curl -L \"https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",
