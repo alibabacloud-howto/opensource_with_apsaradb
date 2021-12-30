@@ -190,6 +190,8 @@ resource "null_resource" "setup" {
       "sudo apt install git -y",
       "wget http://cube.dev/downloads/ecom-dump.sql",
       "git clone https://github.com/cube-js/cube.js.git",
+      "cd ~/cube.js/examples/react-dashboard",
+      "wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/cubejs/postgresql/docker-compose.yml",
       "sudo apt install postgresql-client-common -y",
       "sudo apt install postgresql-client -y",
       "PGPASSWORD=${alicloud_rds_account.account.account_password} psql -h${alicloud_db_instance.instance.connection_string} -U${alicloud_rds_account.account.account_name} ${alicloud_db_database.default.name} -f ~/ecom-dump.sql",
