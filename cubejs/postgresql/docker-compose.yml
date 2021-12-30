@@ -1,0 +1,19 @@
+version: '2.2'
+
+services:
+  cube:
+    image: cubejs/cube:latest
+    ports:
+      - 4000:4000  # Cube.js API and Developer Playground
+      - 3001:3001  # Dashboard app, if created
+    environment:
+      - CUBEJS_DB_TYPE=postgres
+      - CUBEJS_DB_HOST=pgm-3nsl1s6gdx2sh694195190.pg.rds.aliyuncs.com
+      - CUBEJS_DB_USER=cubejs
+      - CUBEJS_DB_PASS=N1cetest
+      - CUBEJS_DB_NAME=ecom
+
+      - CUBEJS_API_SECRET=SECRET
+      - CUBEJS_DEV_MODE=true
+    volumes:
+      - .:/cube/conf
