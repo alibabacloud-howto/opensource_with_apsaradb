@@ -91,7 +91,12 @@ Then execute the following commands to configure the React dashboard to connect 
 ```
 cd ~/cube.js/examples/react-dashboard/dashboard-app
 cp .env.development .env
+vim .env
 ```
+
+Edit to replace the ``localhost`` with ``eip_ecs`` in Step 1 and save.
+
+![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/cubejs/postgresql/images/react-config.png)
 
 Then run the commands to start the React dashboard app.
 

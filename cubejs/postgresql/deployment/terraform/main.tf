@@ -30,6 +30,17 @@ resource "alicloud_security_group_rule" "allow_http_3000" {
   cidr_ip           = "0.0.0.0/0"
 }
 
+resource "alicloud_security_group_rule" "allow_http_3001" {
+  type              = "ingress"
+  ip_protocol       = "tcp"
+  nic_type          = "intranet"
+  policy            = "accept"
+  port_range        = "3001/3001"
+  priority          = 1
+  security_group_id = alicloud_security_group.group.id
+  cidr_ip           = "0.0.0.0/0"
+}
+
 resource "alicloud_security_group_rule" "allow_http_4000" {
   type              = "ingress"
   ip_protocol       = "tcp"
@@ -177,7 +188,7 @@ resource "alicloud_db_account_privilege" "privilege" {
   db_names     = alicloud_db_database.default.*.name
 }
 
-resource "null_resource" "setup" {
+resource "null_resource" "init" {
   provisioner "remote-exec" {
     inline = [
       "sudo apt update",
