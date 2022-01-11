@@ -1,0 +1,21 @@
+version: '2.2'
+
+services:
+  cube:
+    image: cubejs/cube:latest
+    ports:
+      - 4000:4000  # Cube.js API and Developer Playground
+      - 3001:3001  # Dashboard app, if created
+    environment:
+      - CUBEJS_DB_TYPE=mongobi
+      - CUBEJS_DB_HOST=<ECS_EIP>
+      - CUBEJS_DB_PORT=3307
+      - CUBEJS_DB_USER=root
+      - CUBEJS_DB_PASS=N1cetest
+      - CUBEJS_DB_NAME=stats
+      - CUBEJS_API_SECRET=SECRET
+      - CUBEJS_DEV_MODE=true
+      - CUBEJS_DB_SSL=true
+      - CUBEJS_DB_SSL_REJECT_UNAUTHORIZED=false
+    volumes:
+      - .:/cube/conf
