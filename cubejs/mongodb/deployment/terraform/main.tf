@@ -201,6 +201,7 @@ resource "null_resource" "init" {
       "sudo apt install git -y",
       "git clone https://github.com/cube-js/cube.js.git",
       "cd ~/cube.js/examples/real-time-dashboard",
+      "wget https://raw.githubusercontent.com/alibabacloud-howto/opensource_with_apsaradb/main/cubejs/mongodb/docker-compose.yml",
       "npm install mongodb",
       "sudo apt install mongodb-clients -y",
       "sudo apt install unzip -y",

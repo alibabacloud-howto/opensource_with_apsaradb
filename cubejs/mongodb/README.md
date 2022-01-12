@@ -17,24 +17,24 @@ cat key.pem certificate.pem > mongo.pem
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/cubejs/mongodb/images/ssl-key.png)
 
-Then execute the command to load the sample data into the MongoDB, please replace the ``<MONGO_URL_DOMAIN>`` with the MongoDB connection domain in Step 1. Such as, 
+Then execute the command to load the sample data into the MongoDB, please replace the ``<MONGO_URL_DOMAIN_1>`` and ``<MONGO_URL_DOMAIN_2>`` with the MongoDB connection domains in Step 1. Such as, 
 ``mongorestore -h dds-xxxxx1.mongodb.rds.aliyuncs.com:3717,dds-xxxxx2.mongodb.rds.aliyuncs.com:3717 -u root -p N1cetest dump/stats/events.bson``
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/cubejs/mongodb/images/mongo_connect_domain.png)
 
 ```
 cd ~/cube.js/examples/real-time-dashboard
-mongorestore -h <MONGO_URL_DOMAIN>:3717,<MONGO_URL_DOMAIN>:3717 -u root -p N1cetest dump/stats/events.bson
+mongorestore -h <MONGO_URL_DOMAIN_1>:3717,<MONGO_URL_DOMAIN_2>:3717 -u root -p N1cetest dump/stats/events.bson
 ```
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/cubejs/mongodb/images/mongo_sample_data.png)
 
-Then execute the command to start the ``MongoDB Connector for BI``, please replace the ``<ECS_PRIVATE_IP>`` with the ``eip_ecs_private_ip`` and the ``<MONGO_URL_DOMAIN>`` with the MongoDB connection domain in Step 1. Such as,
+Then execute the command to start the ``MongoDB Connector for BI``, please replace the ``<ECS_PRIVATE_IP>`` with the ``eip_ecs_private_ip`` and the ``<MONGO_URL_DOMAIN_1>`` and ``<MONGO_URL_DOMAIN_2>`` with the MongoDB connection domains in Step 1. Such as,
 ``mongodb-bi-linux-x86_64-ubuntu2004-v2.14.4/bin/mongosqld --addr 192.168.0.95:3307 --mongo-uri dds-xxxxx1.mongodb.rds.aliyuncs.com:3717,dds-xxxxx2.mongodb.rds.aliyuncs.com:3717 --mongo-username=root --mongo-password=N1cetest --auth --sslMode requireSSL --sslPEMKeyFile mongo.pem``
 
 ```
 cd ~
-mongodb-bi-linux-x86_64-ubuntu2004-v2.14.4/bin/mongosqld --addr <ECS_PRIVATE_IP>:3307 --mongo-uri <MONGO_URL_DOMAIN>:3717,<MONGO_URL_DOMAIN>:3717 --mongo-username=root --mongo-password=N1cetest --auth --sslMode requireSSL --sslPEMKeyFile mongo.pem
+mongodb-bi-linux-x86_64-ubuntu2004-v2.14.4/bin/mongosqld --addr <ECS_PRIVATE_IP>:3307 --mongo-uri <MONGO_URL_DOMAIN_1>:3717,<MONGO_URL_DOMAIN_2>:3717 --mongo-username=root --mongo-password=N1cetest --auth --sslMode requireSSL --sslPEMKeyFile mongo.pem
 ```
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/cubejs/mongodb/images/mongobi_start.png)
@@ -82,11 +82,14 @@ Then execute the following commands to configure the React dashboard to connect 
 
 ```
 cd ~/cube.js/examples/real-time-dashboard/dashboard-app
-cp .env.development .env
-vim .env
+vim .env.development
+vim .env.production
 ```
 
-
+```
+npm install
+npm start
+```
 
 
 

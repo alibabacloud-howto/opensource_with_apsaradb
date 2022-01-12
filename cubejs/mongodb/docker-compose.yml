@@ -17,5 +17,6 @@ services:
       - CUBEJS_DEV_MODE=true
       - CUBEJS_DB_SSL=true
       - CUBEJS_DB_SSL_REJECT_UNAUTHORIZED=false
+      - CUBEJS_WEB_SOCKETS=true
     volumes:
       - .:/cube/conf
