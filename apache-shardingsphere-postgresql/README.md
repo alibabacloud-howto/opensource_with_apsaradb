@@ -62,7 +62,7 @@ ssh root@<ECS_EIP>
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/ecs-logon.png)
 
-Java 8 and PostgreSQL client had already been installed automatically in [Terraform scrip](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-shardingsphere-postgresql/deployment/terraform/main.tf) in Step 1.
+Java 8 and PostgreSQL client had already been installed automatically in the resource ``null_resource`` in [Terraform scrip](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-shardingsphere-postgresql/deployment/terraform/main.tf) in Step 1.
 
 Execute the following commands to download and unzip the ShardingSphere proxy. In this tutorial, I am using the ``apache-shardingsphere-5.0.0``.
 
