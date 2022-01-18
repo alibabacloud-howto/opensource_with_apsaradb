@@ -242,6 +242,23 @@ resource "alicloud_db_account_privilege" "privilege_3" {
   db_names     = alicloud_db_database.db3.*.name
 }
 
+resource "null_resource" "init" {
+  provisioner "remote-exec" {
+    inline = [
+      "apt update && apt -y install openjdk-8-jdk",
+      "apt update && apt -y install postgresql-client-common",
+      "apt update && apt -y install postgresql-client",
+    ]
+
+    connection {
+      type     = "ssh"
+      user     = "root"
+      password = alicloud_instance.instance.password
+      host     = alicloud_eip.setup_ecs_access.ip_address
+    }
+  }
+}
+
 ######### Output: EIP of ECS
 output "eip_ecs" {
   value = alicloud_eip.setup_ecs_access.ip_address
