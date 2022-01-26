@@ -5,7 +5,7 @@ provider "alicloud" {
 }
 
 variable "zone_1" {
-  default = "cn-hongkong-b"
+  default = "cn-hongkong-c"
 }
 
 variable "name" {
@@ -129,7 +129,7 @@ resource "alicloud_eip_association" "eip_ecs" {
 resource "alicloud_db_instance" "instance_0" {
   engine           = "MySQL"
   engine_version   = "8.0"
-  instance_type    = "rds.mysql.s1.small"
+  instance_type    = "rds.mysql.s2.large"
   instance_storage = "20"
   vswitch_id       = alicloud_vswitch.vswitch_1.id
   instance_name    = "apache_shardingsphere_instance_0"
@@ -139,7 +139,7 @@ resource "alicloud_db_instance" "instance_0" {
 resource "alicloud_db_instance" "instance_1" {
   engine           = "MySQL"
   engine_version   = "8.0"
-  instance_type    = "rds.mysql.s1.small"
+  instance_type    = "rds.mysql.s2.large"
   instance_storage = "20"
   vswitch_id       = alicloud_vswitch.vswitch_1.id
   instance_name    = "apache_shardingsphere_instance_1"
@@ -149,7 +149,7 @@ resource "alicloud_db_instance" "instance_1" {
 resource "alicloud_db_instance" "instance_2" {
   engine           = "MySQL"
   engine_version   = "8.0"
-  instance_type    = "rds.mysql.s1.small"
+  instance_type    = "rds.mysql.s2.large"
   instance_storage = "20"
   vswitch_id       = alicloud_vswitch.vswitch_1.id
   instance_name    = "apache_shardingsphere_instance_2"
@@ -159,7 +159,7 @@ resource "alicloud_db_instance" "instance_2" {
 resource "alicloud_db_instance" "instance_3" {
   engine           = "MySQL"
   engine_version   = "8.0"
-  instance_type    = "rds.mysql.s1.small"
+  instance_type    = "rds.mysql.s2.large"
   instance_storage = "20"
   vswitch_id       = alicloud_vswitch.vswitch_1.id
   instance_name    = "apache_shardingsphere_instance_3"
