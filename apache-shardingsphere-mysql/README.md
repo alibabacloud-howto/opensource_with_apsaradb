@@ -62,17 +62,7 @@ ssh root@<ECS_EIP>
 
 ![image.png](https://github.com/alibabacloud-howto/opensource_with_apsaradb/raw/main/apache-ofbiz/images/ecs-logon.png)
 
-Execute the following command to install Java 8.
-
-```bash
-apt update && apt -y install openjdk-8-jdk
-```
-
-Execute the following command to install MySQL client.
-
-```bash
-apt update && apt -y install mysql-client
-```
+Java 8 and MySQL client had already been installed automatically in the resource ``null_resource`` in [Terraform scrip](https://github.com/alibabacloud-howto/opensource_with_apsaradb/blob/main/apache-shardingsphere-mysql/deployment/terraform/main.tf) in Step 1.
 
 Execute the following commands to download and unzip the ShardingSphere proxy. In this tutorial, I am using the ``apache-shardingsphere-5.0.0``.
 
