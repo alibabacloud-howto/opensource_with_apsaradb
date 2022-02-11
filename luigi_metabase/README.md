@@ -106,7 +106,7 @@ wget https://downloads.metabase.com/v0.40.3.1/metabase.jar
 
 By default, Metabase uses the default application database (H2) when initially start using Metabase. But in this tutorial, I show the best practice of switching to a more production-ready database RDS PostgreSQL.
 Basically, it follows the official document [Migrating from using the H2 database to Postgres or MySQL/MariaDB](https://www.metabase.com/docs/latest/operations-guide/migrating-from-h2.html).
-Execute the following commands to migration Metabase backend database from H2 to RDS PostgreSQL that was provisioned before in the Step 1.
+Execute the following commands to migrate Metabase backend database from H2 to RDS PostgreSQL that was provisioned before in the Step 1.
 Please update ``<rds_pg_url_metabase_database>`` with the corresponding connection string.
 
 ```
