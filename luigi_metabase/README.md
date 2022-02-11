@@ -183,8 +183,8 @@ There are 3 tables as the source tables and 3 tables as the target tables in the
 - ``invoice``: a source table in the demo ETL data pipeline
 - ``customer_info``: a source table in the demo ETL data pipeline
 - ``invoice_time``: a target table in the demo ETL data pipeline
-- ``invoice_outliers`` a target table in the demo ETL data pipeline
-- ``association_rules`` a target table in the demo ETL data pipeline
+- ``invoice_outliers``: a target table in the demo ETL data pipeline
+- ``association_rules``: a target table in the demo ETL data pipeline
 
 ---
 ### Step 4. Run the demo ETL data pipeline on Luigi
