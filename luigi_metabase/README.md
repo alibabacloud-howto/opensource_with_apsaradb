@@ -47,9 +47,9 @@ After the Terraform script execution finished, the ECS and RDS PostgreSQL instan
 
 - ``eip_ecs``: The public EIP of the ECS for Azkaban installation host
 - ``rds_pg_url_metabase_database``: The connection URL of the backend RDS PostgreSQL database for Metabase
-- ``rds_pg_port_metabase_database``: The connection port of the backend RDS PostgreSQL database for Metabase, by default, it is ``1921`` for RDS PostgreSQL 
+- ``rds_pg_port_metabase_database``: The connection port of the backend RDS PostgreSQL database for Metabase, by default, it is ``5432`` for RDS PostgreSQL 
 - ``rds_pg_url_demo_database``: The connection URL of the demo RDS PostgreSQL database using Luigi and Metabase
-- ``rds_pg_port_demo_database``: The connection Port of the demo RDS PostgreSQL database using Luigi and Metabase, by default, it is ``1921`` for RDS PostgreSQL 
+- ``rds_pg_port_demo_database``: The connection Port of the demo RDS PostgreSQL database using Luigi and Metabase, by default, it is ``5432`` for RDS PostgreSQL 
 
 ---
 ### Step 2. Deploy and setup Luigi and Metabase on ECS with RDS PostgreSQL
